@@ -2,8 +2,8 @@ package com.ssmm.stockcrawler.parseTests;
 
 import org.jsoup.nodes.Document;
 
-import com.ssmm.stockcrawler.service.PageReader;
-import com.ssmm.stockcrawler.service.PageReaderImpl;
+import com.ssmm.stockcrawler.parser.PageReader;
+import com.ssmm.stockcrawler.parser.PageReaderImpl;
 
 import junit.framework.TestCase;
 

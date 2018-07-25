@@ -16,14 +16,14 @@ public class StockKeyword {
 	private int agentId;
 	private String name;
 	private String link;
-	private Date dateCreated;
-	private Date dateUpdated;
-	private String type;
+	private Date createdDate;
+	private Date updatedDate;
+	private int type;
 	private int status;
 
 	@Relationship(type = "RELATED_TO")
 	private Set<StockKeyword> stockKeywords;
-	
+
 	@Relationship(type = "HAS")
 	private Stock stock;
 
@@ -59,27 +59,27 @@ public class StockKeyword {
 		this.link = link;
 	}
 
-	public Date getDateCreated() {
-		return dateCreated;
+	public Date getCreatedDate() {
+		return createdDate;
 	}
 
-	public void setDateCreated(Date dateCreated) {
-		this.dateCreated = dateCreated;
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
 	}
 
-	public Date getDateUpdated() {
-		return dateUpdated;
+	public Date getUpdatedDate() {
+		return updatedDate;
 	}
 
-	public void setDateUpdated(Date dateUpdated) {
-		this.dateUpdated = dateUpdated;
+	public void setUpdatedDate(Date updatedDate) {
+		this.updatedDate = updatedDate;
 	}
 
-	public String getType() {
+	public int getType() {
 		return type;
 	}
 
-	public void setType(String type) {
+	public void setType(int type) {
 		this.type = type;
 	}
 
@@ -104,13 +104,10 @@ public class StockKeyword {
 	}
 
 	public void addStockKeyword(StockKeyword stockKeyword) {
-		if(stockKeywords==null)
+		if (stockKeywords == null)
 			stockKeywords = new HashSet<>();
-		
+
 		stockKeywords.add(stockKeyword);
 	}
-	
-	
-	
 
 }

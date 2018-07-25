@@ -15,8 +15,8 @@ import org.junit.Test;
 
 import com.ssmm.stockcrawler.helper.Helper;
 import com.ssmm.stockcrawler.parser.NaverStockKeywordParser;
-import com.ssmm.stockcrawler.service.PageReader;
-import com.ssmm.stockcrawler.service.PageReaderImpl;
+import com.ssmm.stockcrawler.parser.PageReader;
+import com.ssmm.stockcrawler.parser.PageReaderImpl;
 
 import junit.framework.TestCase;
 

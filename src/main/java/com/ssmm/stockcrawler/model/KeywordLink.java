@@ -9,7 +9,7 @@ public class KeywordLink {
 	private Timestamp registeredDate;
 	private Timestamp bookingDate;
 	private int agentId;
-	private int parentId;
+	private Long parentId;
 
 	
 	public KeywordLink(String link) {
@@ -64,12 +64,13 @@ public class KeywordLink {
 		this.agentId = agentId;
 	}
 
-	public int getParentId() {
+	public Long getParentId() {
 		return parentId;
 	}
 
-	public void setParentId(int parentId) {
+	public void setParentId(Long parentId) {
 		this.parentId = parentId;
 	}
 
+	
 }

@@ -13,9 +13,11 @@ import com.ssmm.stockcrawler.parser.KeywordParser;
 import com.ssmm.stockcrawler.parser.DetailParserImpl;
 import com.ssmm.stockcrawler.parser.KeywordParserImpl;
 import com.ssmm.stockcrawler.parser.NaverStockKeywordParser;
+import com.ssmm.stockcrawler.parser.PageReader;
+import com.ssmm.stockcrawler.parser.PageReaderImpl;
 import com.ssmm.stockcrawler.parser.StockKeywordParser;
-import com.ssmm.stockcrawler.service.PageReader;
-import com.ssmm.stockcrawler.service.PageReaderImpl;
+import com.ssmm.stockcrawler.service.StockKeywordService;
+import com.ssmm.stockcrawler.service.StockKeywordServiceImpl;
 
 public class CrawlerModule extends AbstractModule {
 
@@ -27,6 +29,7 @@ public class CrawlerModule extends AbstractModule {
 		bind(DetailParser.class).to(DetailParserImpl.class);
 		bind(PageReader.class).to(PageReaderImpl.class);
 		bind(StockKeywordParser.class).to(NaverStockKeywordParser.class);
+		bind(StockKeywordService.class).to(StockKeywordServiceImpl.class);
 		bind(KeywordLinkQueue.class).toInstance(new KeywordLinkQueue());
 	}
 }

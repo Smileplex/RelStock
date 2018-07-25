@@ -1,4 +1,4 @@
-package com.ssmm.stockcrawler.service;
+package com.ssmm.stockcrawler.parser;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
