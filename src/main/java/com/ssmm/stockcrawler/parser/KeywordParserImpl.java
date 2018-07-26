@@ -38,7 +38,11 @@ public class KeywordParserImpl implements KeywordParser {
 	public void run() {
 		// TODO Auto-generated method stub
 		while (true) {
-			parse(linkQueue.get());
+			try {
+				parse(linkQueue.get());
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -49,10 +53,9 @@ public class KeywordParserImpl implements KeywordParser {
 		if (keywordInfo instanceof EmptyKeywordInfo)
 			return;
 
-		StockKeyword generatedKeyword = stockKeywordGenerator.create(keywordInfo, keywordLink);
-		pushKeywordLinkQueue(keywordLink, keywordInfo, generatedKeyword);
-
 		System.out.println("(" + Thread.currentThread().getName() + ") " + keywordInfo.getKeywordName());
+		StockKeyword generatedKeyword = stockKeywordGenerator.generate(keywordInfo, keywordLink);
+		pushKeywordLinkQueue(keywordLink, keywordInfo, generatedKeyword);
 	}
 
 	private void pushKeywordLinkQueue(KeywordLink keywordLink, KeywordInfo keywordInfo, StockKeyword generatedKeyword) {

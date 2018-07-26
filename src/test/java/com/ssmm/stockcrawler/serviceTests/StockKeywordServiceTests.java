@@ -26,11 +26,11 @@ public class StockKeywordServiceTests extends TestCase {
 		stockKeyword.setName("LG전자");
 		stockKeyword.setLink(
 				"https://m.search.naver.com/search.naver?sm=top_hty&fbm=1&ie=utf8&query=lg%EC%A0%84%EC%9E%90&where=m");
-		stockKeyword.setType("self");
+//		stockKeyword.setType("self");
 		stockKeyword.setAgentId(0);
 		stockKeyword.setStatus(1);
-		stockKeyword.setDateCreated(new Date());
-		stockKeyword.setDateUpdated(new Date());
+//		stockKeyword.setDateCreated(new Date());
+//		stockKeyword.setDateUpdated(new Date());
 		
 		Stock stock = new Stock("LG전자");
 		stockKeyword.setStock(stock);
@@ -44,22 +44,22 @@ public class StockKeywordServiceTests extends TestCase {
 			stockKeyword1.setName("LG전자");
 			stockKeyword1.setLink(
 					"https://m.search.naver.com/search.naver?sm=top_hty&fbm=1&ie=utf8&query=lg%EC%A0%84%EC%9E%90&where=m");
-			stockKeyword1.setType("self");
+//			stockKeyword1.setType("self");
 			stockKeyword1.setAgentId(0);
 			stockKeyword1.setStatus(1);
-			stockKeyword1.setDateCreated(new Date());
-			stockKeyword1.setDateUpdated(new Date());
+//			stockKeyword1.setDateCreated(new Date());
+//			stockKeyword1.setDateUpdated(new Date());
 		}
 		
 		StockKeyword stockKeyword2 = new StockKeyword();
 		stockKeyword2.setName("삼성전자");
 		stockKeyword2.setLink(
 				"https://m.search.naver.com/search.naver?sm=top_hty&fbm=1&ie=utf8&query=lg%EC%A0%84%EC%9E%90&where=m");
-		stockKeyword2.setType("self");
+//		stockKeyword2.setType("self");
 		stockKeyword2.setAgentId(0);
 		stockKeyword2.setStatus(1);
-		stockKeyword2.setDateCreated(new Date());
-		stockKeyword2.setDateUpdated(new Date());
+//		stockKeyword2.setDateCreated(new Date());
+//		stockKeyword2.setDateUpdated(new Date());
 		
 		stockKeyword1.addStockKeyword(stockKeyword2);
 		stockKeywordService.save(stockKeyword1);

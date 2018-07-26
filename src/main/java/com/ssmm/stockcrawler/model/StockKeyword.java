@@ -7,8 +7,10 @@ import java.util.Set;
 
 import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
+import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 
+@NodeEntity
 public class StockKeyword {
 	@Id
 	@GeneratedValue
@@ -26,6 +28,14 @@ public class StockKeyword {
 
 	@Relationship(type = "HAS")
 	private Stock stock;
+
+	public StockKeyword() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public StockKeyword(String name) {
+		this.name = name;
+	}
 
 	public Long getId() {
 		return id;

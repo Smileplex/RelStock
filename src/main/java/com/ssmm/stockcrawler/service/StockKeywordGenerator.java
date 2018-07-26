@@ -6,5 +6,5 @@ import com.ssmm.stockcrawler.model.StockKeyword;
 import com.ssmm.stockcrawler.parser.model.KeywordInfo;
 
 public interface StockKeywordGenerator {
-	StockKeyword create(KeywordInfo keywordInfo, KeywordLink keywordLink);
+	StockKeyword generate(KeywordInfo keywordInfo, KeywordLink keywordLink);
 }

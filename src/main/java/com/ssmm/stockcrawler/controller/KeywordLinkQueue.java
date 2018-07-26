@@ -25,8 +25,11 @@ public class KeywordLinkQueue {
 
 	public void put(KeywordLink data) {
 		try {
-			if(duplicateChecker.add(data.getLink()))
+			if(duplicateChecker.add(data.getLink())) {
 				queue.put(data);
+				System.out.println(String.format("[%s/%s]", queue.size(),duplicateChecker.size()));
+			}
+				
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -19,31 +19,26 @@ public class StockKeywordGeneratorImpl implements StockKeywordGenerator {
 	}
 
 	@Override
-	public StockKeyword create(KeywordInfo keywordInfo, KeywordLink keywordLink) {
+	public StockKeyword generate(KeywordInfo keywordInfo, KeywordLink keywordLink) {
 		// TODO Auto-generated method stub
 		StockKeyword searchedKeyword = stockKeywordService.findByName(keywordInfo.getKeywordName());
-		
-		if(Objects.isNull(searchedKeyword)) {
-			StockKeyword entity = new StockKeyword();
-			entity.setAgentId(keywordLink.getAgentId());
-			entity.setName(keywordInfo.getKeywordName());
-			entity.setLink(keywordLink.getLink());
-			entity.setCreatedDate(new Date());
-			entity.setUpdatedDate(new Date());
-			entity.setType(keywordInfo.getKeywordType());
-			entity.addStockKeyword(searchedKeyword);
-			entity.setStatus(1);
-			
-			StockKeyword relatedKeyword = stockKeywordService.find(keywordLink.getParentId());
-			if(Objects.nonNull(relatedKeyword))
-				entity.addStockKeyword(relatedKeyword);
-			return entity;
-		}else {
+		if (Objects.nonNull(searchedKeyword)) {
 			searchedKeyword.setUpdatedDate(new Date());
+			return stockKeywordService.save(searchedKeyword);
 		}
-		
-		return searchedKeyword;
 
+		StockKeyword entity = new StockKeyword();
+		entity.setAgentId(keywordLink.getAgentId());
+		entity.setName(keywordInfo.getKeywordName());
+		entity.setLink(keywordLink.getLink());
+		entity.setCreatedDate(new Date());
+		entity.setUpdatedDate(new Date());
+		entity.setType(keywordInfo.getKeywordType());
+		entity.setStatus(1);
+
+		StockKeyword relatedKeyword = stockKeywordService.find(keywordLink.getParentId());
+		if (Objects.nonNull(relatedKeyword))
+			entity.addStockKeyword(relatedKeyword);
+		return stockKeywordService.save(entity);
 	}
-
 }

@@ -31,14 +31,15 @@ public class CrawlerController {
 		for (int i = 0; i < AppSettings.THREAD_WORKERS; i++) {
 			executor.submit(keywordParser);
 		}
-
+		
 		// executor.submit(detailParser);
 		// stop();
 	}
 
 	public void setInitialLink() {
 		KeywordLink keywordLink = new KeywordLink(
-				"https://m.search.naver.com/search.naver?where=m&query=%ED%95%9C%EA%B5%AD%EC%A0%84%EB%A0%A5&sm=mtb_she&qdt=0");
+				"https://m.search.naver.com/search.naver?sm=top_hty&fbm=1&ie=utf8&query=lg%EC%A0%84%EC%9E%90&where=m");
+		keywordLink.setParentId(53L);
 		keywordLinkQueue.put(keywordLink);
 	}
 
