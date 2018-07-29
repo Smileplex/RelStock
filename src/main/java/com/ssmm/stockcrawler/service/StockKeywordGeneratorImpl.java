@@ -9,7 +9,7 @@ import com.ssmm.stockcrawler.model.KeywordLink;
 import com.ssmm.stockcrawler.model.StockKeyword;
 import com.ssmm.stockcrawler.parser.model.KeywordInfo;
 
-public class StockKeywordGeneratorImpl implements StockKeywordGenerator {
+public class StockKeywordGeneratorImpl implements KeywordGenerator {
 	private StockKeywordService stockKeywordService;
 
 	@Inject
@@ -19,12 +19,12 @@ public class StockKeywordGeneratorImpl implements StockKeywordGenerator {
 	}
 
 	@Override
-	public StockKeyword generate(KeywordInfo keywordInfo, KeywordLink keywordLink) {
+	public Long generate(KeywordInfo keywordInfo, KeywordLink keywordLink) {
 		// TODO Auto-generated method stub
 		StockKeyword searchedKeyword = stockKeywordService.findByName(keywordInfo.getKeywordName());
 		if (Objects.nonNull(searchedKeyword)) {
 			searchedKeyword.setUpdatedDate(new Date());
-			return stockKeywordService.save(searchedKeyword);
+			return stockKeywordService.save(searchedKeyword).getId();
 		}
 
 		StockKeyword entity = new StockKeyword();
@@ -39,6 +39,6 @@ public class StockKeywordGeneratorImpl implements StockKeywordGenerator {
 		StockKeyword relatedKeyword = stockKeywordService.find(keywordLink.getParentId());
 		if (Objects.nonNull(relatedKeyword))
 			entity.addStockKeyword(relatedKeyword);
-		return stockKeywordService.save(entity);
+		return stockKeywordService.save(entity).getId();
 	}
 }

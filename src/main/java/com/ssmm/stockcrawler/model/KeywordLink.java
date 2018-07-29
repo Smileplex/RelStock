@@ -11,57 +11,46 @@ public class KeywordLink {
 	private int agentId;
 	private Long parentId;
 
-	
+	public KeywordLink() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public KeywordLink(String link) {
 		this.link = link;
+	}
+
+	public KeywordLink(String link, int status, Timestamp registeredDate, Timestamp bookingDate, int agentId,
+			Long parentId) {
+		this.link = link;
+		this.status = status;
+		this.registeredDate = registeredDate;
+		this.bookingDate = bookingDate;
+		this.agentId = agentId;
+		this.parentId = parentId;
 	}
 
 	public Long getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-
 	public String getLink() {
 		return link;
-	}
-
-	public void setLink(String link) {
-		this.link = link;
 	}
 
 	public int getStatus() {
 		return status;
 	}
 
-	public void setStatus(int status) {
-		this.status = status;
-	}
-
 	public Timestamp getRegisteredDate() {
 		return registeredDate;
-	}
-
-	public void setRegisteredDate(Timestamp registeredDate) {
-		this.registeredDate = registeredDate;
 	}
 
 	public Timestamp getBookingDate() {
 		return bookingDate;
 	}
 
-	public void setBookingDate(Timestamp bookingDate) {
-		this.bookingDate = bookingDate;
-	}
-
 	public int getAgentId() {
 		return agentId;
-	}
-
-	public void setAgentId(int agentId) {
-		this.agentId = agentId;
 	}
 
 	public Long getParentId() {
@@ -71,6 +60,5 @@ public class KeywordLink {
 	public void setParentId(Long parentId) {
 		this.parentId = parentId;
 	}
-
 	
 }

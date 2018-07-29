@@ -4,7 +4,7 @@ import org.jsoup.nodes.Document;
 
 import com.ssmm.stockcrawler.parser.model.KeywordInfo;
 
-public interface StockKeywordParser {
+public interface PageParser {
 	KeywordInfo parse(Document pageHtml);
 
 }
