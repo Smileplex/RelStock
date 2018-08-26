@@ -6,5 +6,4 @@ import com.ssmm.stockcrawler.parser.model.KeywordInfo;
 
 public interface PageParser {
 	KeywordInfo parse(Document pageHtml);
-
 }

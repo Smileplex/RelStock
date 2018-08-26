@@ -8,7 +8,7 @@ import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
 
 @NodeEntity
-public class Stock implements Detail{
+public class Stock{
 	@Id
 	@GeneratedValue
 	private Long id;

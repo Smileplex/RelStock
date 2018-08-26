@@ -20,7 +20,7 @@ public class NaverStockKeywordParser implements PageParser {
 	private final int NOT_A_STOCK_KEYWORD = 3;
 	private Document pageHtml;
 	private String keywordName;
-	
+
 	@Override
 	public KeywordInfo parse(Document pageHtml) {
 		// TODO Auto-generated method stub
@@ -34,7 +34,7 @@ public class NaverStockKeywordParser implements PageParser {
 
 		return new KeywordInfo(keywordName, keywordType, getRelatedKeywordLinks());
 	}
-	
+
 	private String getKeywordName() {
 		try {
 			return URLDecoder

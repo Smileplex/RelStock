@@ -1,6 +1,10 @@
 package com.ssmm.stockcrawler.model;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class StockResult {
+	private String name;
+	private String code;
 	private int end;
 	private int marketSum;
 	private int risefall;
@@ -17,6 +21,22 @@ public class StockResult {
 	private String meetingDate;
 	private double debtRatio;
 	private int dividend;
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
 
 	public int getEnd() {
 		return end;

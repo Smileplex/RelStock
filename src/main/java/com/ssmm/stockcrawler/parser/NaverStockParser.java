@@ -5,32 +5,32 @@ import java.io.IOException;
 import org.jsoup.nodes.Document;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.inject.Inject;
 import com.ssmm.stockcrawler.helper.Helper;
 import com.ssmm.stockcrawler.model.StockResult;
-import com.ssmm.stockcrawler.parser.model.DetailInfo;
+import com.ssmm.stockcrawler.parser.model.Detail;
 
-public class NaverStockParser implements DetailPageParser {
+public class NaverStockParser implements PageDetailParser {
 	public static final String STOCK_REQUEST_URL = "https://search.naver.com/p/n.search/finance/api/item/itemJson.nhn?_callback=window.__jindo2_callback._575&code=%s";
 	private final PageReader pageReader;
 	private final ObjectMapper objectMapper;
 
+	@Inject
 	public NaverStockParser(PageReader pageReader) {
 		this.pageReader = pageReader;
 		this.objectMapper = new ObjectMapper();
 	}
 
 	@Override
-	public DetailInfo parse(Document pageHtml) {
+	public Detail parse(Document pageHtml) {
 		// TODO Auto-generated method stub
-		String stockName = getStockName(pageHtml);
-		String stockCode = getStockCode(pageHtml);
-
 		try {
-			Document rawResult = pageReader.read(String.format(STOCK_REQUEST_URL, stockCode));
+			Document rawResult = pageReader.read(String.format(STOCK_REQUEST_URL, getStockCode(pageHtml)));
 			StockResult stockResult = objectMapper.readValue(getJsonStock(rawResult), StockResult.class);
-//			stockResult.setStockName(stockName);
-//			stockResult.setStockCode(stockCode);
-			return null;
+			stockResult.setName(getStockName(pageHtml));
+			stockResult.setCode(getStockCode(pageHtml));
+			System.out.println(stockResult.toString());
+			return new Detail(stockResult);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (NumberFormatException e) {
