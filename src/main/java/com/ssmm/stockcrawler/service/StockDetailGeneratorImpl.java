@@ -2,7 +2,6 @@ package com.ssmm.stockcrawler.service;
 
 import com.google.inject.Inject;
 import com.ssmm.stockcrawler.model.DetailLink;
-import com.ssmm.stockcrawler.model.KeywordLink;
 import com.ssmm.stockcrawler.parser.model.Detail;
 
 public class StockDetailGeneratorImpl implements DetailGenerator {
@@ -17,6 +16,7 @@ public class StockDetailGeneratorImpl implements DetailGenerator {
 	@Override
 	public Long generate(Detail detail, DetailLink detailLink) {
 		// TODO Auto-generated method stub
+		System.out.println(detail.getDetailJson());
 		return null;
 	}
 

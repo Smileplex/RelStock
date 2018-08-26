@@ -29,8 +29,8 @@ public class NaverStockParser implements PageDetailParser {
 			StockResult stockResult = objectMapper.readValue(getJsonStock(rawResult), StockResult.class);
 			stockResult.setName(getStockName(pageHtml));
 			stockResult.setCode(getStockCode(pageHtml));
-			System.out.println(stockResult.toString());
-			return new Detail(stockResult);
+			return new Detail(objectMapper.writeValueAsString(stockResult));
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (NumberFormatException e) {
