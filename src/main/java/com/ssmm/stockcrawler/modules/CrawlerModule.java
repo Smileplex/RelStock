@@ -3,6 +3,7 @@ package com.ssmm.stockcrawler.modules;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
 import com.google.inject.internal.SingletonScope;
@@ -21,7 +22,7 @@ import com.ssmm.stockcrawler.parser.PageReaderImpl;
 import com.ssmm.stockcrawler.parser.PageParser;
 import com.ssmm.stockcrawler.service.DetailGenerator;
 import com.ssmm.stockcrawler.service.KeywordGenerator;
-import com.ssmm.stockcrawler.service.StockDetailGeneratorImpl;
+import com.ssmm.stockcrawler.service.StockGeneratorImpl;
 import com.ssmm.stockcrawler.service.StockKeywordGeneratorImpl;
 import com.ssmm.stockcrawler.service.StockKeywordService;
 import com.ssmm.stockcrawler.service.StockKeywordServiceImpl;
@@ -44,9 +45,11 @@ public class CrawlerModule extends AbstractModule {
 		bind(StockKeywordService.class).to(StockKeywordServiceImpl.class);
 		bind(StockService.class).to(StockServiceImpl.class);
 		bind(KeywordGenerator.class).to(StockKeywordGeneratorImpl.class);
-		bind(DetailGenerator.class).to(StockDetailGeneratorImpl.class);
+		bind(DetailGenerator.class).to(StockGeneratorImpl.class);
 		
 		bind(KeywordLinkQueue.class).toInstance(new KeywordLinkQueue());
 		bind(DetailLinkQueue.class).toInstance(new DetailLinkQueue());
+		
+		bind(ObjectMapper.class).toInstance(new ObjectMapper());
 	}
 }

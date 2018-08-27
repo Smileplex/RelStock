@@ -1,4 +1,7 @@
 package com.ssmm.stockcrawler.model;
+
+import java.util.Date;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -8,20 +11,27 @@ public class StockResult {
 	private int end;
 	private int marketSum;
 	private int risefall;
-	private String tradeStopYn;
-	private int openVal;
 	private int volumeTrade;
 	private int prevClose;
+	private int nowVal;
+	private int openVal;
 	private int highVal;
 	private int lowVal;
+	private int fluct;
+	private Double fluctRate;
+	private String tradeStopYn;
 	private double frgnAcqRatio;
 	private int faceVal;
 	private int high52week;
 	private int low52week;
-	private String meetingDate;
-	private double debtRatio;
-	private int dividend;
-	
+//	private String meetingDate;
+//	private double debtRatio;
+//	private int dividend;
+
+	public StockResult() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -62,22 +72,6 @@ public class StockResult {
 		this.risefall = risefall;
 	}
 
-	public String getTradeStopYn() {
-		return tradeStopYn;
-	}
-
-	public void setTradeStopYn(String tradeStopYn) {
-		this.tradeStopYn = tradeStopYn;
-	}
-
-	public int getOpenVal() {
-		return openVal;
-	}
-
-	public void setOpenVal(int openVal) {
-		this.openVal = openVal;
-	}
-
 	public int getVolumeTrade() {
 		return volumeTrade;
 	}
@@ -94,6 +88,22 @@ public class StockResult {
 		this.prevClose = prevClose;
 	}
 
+	public int getNowVal() {
+		return nowVal;
+	}
+
+	public void setNowVal(int nowVal) {
+		this.nowVal = nowVal;
+	}
+
+	public int getOpenVal() {
+		return openVal;
+	}
+
+	public void setOpenVal(int openVal) {
+		this.openVal = openVal;
+	}
+
 	public int getHighVal() {
 		return highVal;
 	}
@@ -108,6 +118,30 @@ public class StockResult {
 
 	public void setLowVal(int lowVal) {
 		this.lowVal = lowVal;
+	}
+
+	public int getFluct() {
+		return fluct;
+	}
+
+	public void setFluct(int fluct) {
+		this.fluct = fluct;
+	}
+
+	public Double getFluctRate() {
+		return fluctRate;
+	}
+
+	public void setFluctRate(Double fluctRate) {
+		this.fluctRate = fluctRate;
+	}
+
+	public String getTradeStopYn() {
+		return tradeStopYn;
+	}
+
+	public void setTradeStopYn(String tradeStopYn) {
+		this.tradeStopYn = tradeStopYn;
 	}
 
 	public double getFrgnAcqRatio() {
@@ -142,37 +176,28 @@ public class StockResult {
 		this.low52week = low52week;
 	}
 
-	public String getMeetingDate() {
-		return meetingDate;
-	}
-
-	public void setMeetingDate(String meetingDate) {
-		this.meetingDate = meetingDate;
-	}
-
-	public double getDebtRatio() {
-		return debtRatio;
-	}
-
-	public void setDebtRatio(double debtRatio) {
-		this.debtRatio = debtRatio;
-	}
-
-	public int getDividend() {
-		return dividend;
-	}
-
-	public void setDividend(int dividend) {
-		this.dividend = dividend;
-	}
-
-	@Override
-	public String toString() {
-		return "StockResult [end=" + end + ", marketSum=" + marketSum + ", risefall=" + risefall + ", tradeStopYn="
-				+ tradeStopYn + ", openVal=" + openVal + ", volumeTrade=" + volumeTrade + ", prevClose=" + prevClose
-				+ ", highVal=" + highVal + ", lowVal=" + lowVal + ", frgnAcqRatio=" + frgnAcqRatio + ", faceVal="
-				+ faceVal + ", high52week=" + high52week + ", low52week=" + low52week + ", meetingDate=" + meetingDate
-				+ ", debtRatio=" + debtRatio + ", dividend=" + dividend + "]";
-	}
+//	public String getMeetingDate() {
+//		return meetingDate;
+//	}
+//
+//	public void setMeetingDate(String meetingDate) {
+//		this.meetingDate = meetingDate;
+//	}
+//
+//	public double getDebtRatio() {
+//		return debtRatio;
+//	}
+//
+//	public void setDebtRatio(double debtRatio) {
+//		this.debtRatio = debtRatio;
+//	}
+//
+//	public int getDividend() {
+//		return dividend;
+//	}
+//
+//	public void setDividend(int dividend) {
+//		this.dividend = dividend;
+//	}
 
 }

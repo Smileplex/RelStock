@@ -1,6 +1,7 @@
 package com.ssmm.stockcrawler.parser;
 
 import java.net.URL;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import org.jsoup.nodes.Document;
@@ -46,11 +47,13 @@ public class DetailParserImpl implements DetailParser {
 		// TODO Auto-generated method stub
 		Document document = pageReader.read(detailLink.getLink());
 		Detail detail = pageDetailParser.parse(document);
+		if (Objects.isNull(detail)) {
+			System.out.println("(" + Thread.currentThread().getName() + ") " + " can not parse it ");
+			return;
+		}
 		detailGenerator.generate(detail, detailLink);
 
 		if (detail instanceof EmptyDetail)
 			return;
-
-		System.out.println("(" + Thread.currentThread().getName() + ") " + detail);
 	}
 }

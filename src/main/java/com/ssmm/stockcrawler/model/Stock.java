@@ -8,7 +8,7 @@ import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
 
 @NodeEntity
-public class Stock{
+public class Stock {
 	@Id
 	@GeneratedValue
 	private Long id;
@@ -153,6 +153,15 @@ public class Stock{
 
 	public void setDateUpdated(Date dateUpdated) {
 		this.dateUpdated = dateUpdated;
+	}
+
+	@Override
+	public String toString() {
+		return "Stock [id=" + id + ", name=" + name + ", code=" + code + ", pricePrev=" + pricePrev + ", price=" + price
+				+ ", priceMax=" + priceMax + ", priceMin=" + priceMin + ", fluct=" + fluct + ", fluctRate=" + fluctRate
+				+ ", riseFall=" + riseFall + ", chartDaily=" + chartDaily + ", chartWeekly=" + chartWeekly
+				+ ", chartMonthly=" + chartMonthly + ", dateCreated=" + dateCreated + ", dateUpdated=" + dateUpdated
+				+ "]";
 	}
 
 }
