@@ -28,16 +28,14 @@ public class CrawlerController {
 	public void start() {
 		setInitialLink();
 
-		for (int i = 0; i < AppSettings.THREAD_WORKERS-5; i++) {
+		for (int i = 0; i < AppSettings.THREAD_WORKERS/2; i++) {
 			executor.submit(keywordParser);
 		}
 		
-		executor.submit(detailParser);
-		executor.submit(detailParser);
-		executor.submit(detailParser);
-		executor.submit(detailParser);
+		for (int i = 0; i < AppSettings.THREAD_WORKERS/2; i++) {
+			executor.submit(detailParser);
+		}
 		
-//		executor.submit(detailParser);
 		// stop();
 	}
 

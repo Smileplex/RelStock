@@ -60,5 +60,5 @@ public class KeywordLink {
 	public void setParentId(Long parentId) {
 		this.parentId = parentId;
 	}
-	
+
 }

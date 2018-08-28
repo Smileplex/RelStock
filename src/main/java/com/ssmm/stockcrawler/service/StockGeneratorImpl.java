@@ -33,7 +33,7 @@ public class StockGeneratorImpl implements DetailGenerator {
 	public Long generate(Detail detail, DetailLink detailLink) {
 		// TODO Auto-generated method stub
 		try {
-			StockResult stockResult = objectMapper.readValue(detail.getDetailJson(), StockResult.class);
+			StockResult stockResult = objectMapper.readValue(detail.getResult(), StockResult.class);
 			if (Objects.nonNull(stockResult)) {
 				Stock searchedStock = stockService.findByName(stockResult.getName());
 				if (Objects.isNull(searchedStock)) {
@@ -62,7 +62,7 @@ public class StockGeneratorImpl implements DetailGenerator {
 		// TODO Auto-generated method stub
 		Stock stock = new Stock();
 		stock.setName(stockResult.getName());
-		if(!Strings.isNullOrEmpty(stockResult.getCode()))
+		if (!Strings.isNullOrEmpty(stockResult.getCode()))
 			stock.setCode(Integer.parseInt(stockResult.getCode()));
 		stock.setPricePrev(stockResult.getPrevClose());
 		stock.setPrice(stockResult.getNowVal());

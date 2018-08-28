@@ -10,6 +10,7 @@ import com.google.inject.Inject;
 import com.ssmm.stockcrawler.helper.Helper;
 import com.ssmm.stockcrawler.model.StockResult;
 import com.ssmm.stockcrawler.parser.model.Detail;
+import com.ssmm.stockcrawler.parser.model.EmptyDetail;
 
 public class NaverStockParser implements PageDetailParser {
 	public static final String STOCK_REQUEST_URL = "https://search.naver.com/p/n.search/finance/api/item/itemJson.nhn?_callback=window.__jindo2_callback._575&code=%s";
@@ -26,13 +27,13 @@ public class NaverStockParser implements PageDetailParser {
 	@Override
 	public Detail parse(Document pageHtml) {
 		// TODO Auto-generated method stub
-
 		StockResult stockResult;
 		try {
 			stockResult = objectMapper.readValue(getJsonStock(pageHtml), StockResult.class);
 			stockResult.setName(getStockName(pageHtml));
 			stockResult.setCode(getStockCode(pageHtml));
-			setStockDetailValue(stockResult);
+
+			setStockPriceValues(stockResult);
 			return new Detail(objectMapper.writeValueAsString(stockResult));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -40,7 +41,7 @@ public class NaverStockParser implements PageDetailParser {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return null;
+		return new EmptyDetail(getStockName(pageHtml));
 	}
 
 	private String getJsonStock(Document pageHtml) {
@@ -56,7 +57,7 @@ public class NaverStockParser implements PageDetailParser {
 		return Helper.cutStringInRange(document.toString(), "sItemCode : \"", "\"");
 	}
 
-	private void setStockDetailValue(StockResult stockResult) {
+	private void setStockPriceValues(StockResult stockResult) {
 		// TODO Auto-generated method stub
 		Document rawResult = pageReader.read(String.format(STOCK_VALUE_URL, stockResult.getCode()));
 		stockResult.setNowVal(getStockNowVal(rawResult.toString()));
@@ -72,7 +73,7 @@ public class NaverStockParser implements PageDetailParser {
 			if (!Strings.isNullOrEmpty(cutStringInRange))
 				nowVal = Integer.parseInt(cutStringInRange);
 		} catch (Exception e) {
-			System.out.println("error nowVal = " + nowVal);
+			System.out.println("Can not parse current value : " + nowVal);
 		}
 		return nowVal;
 	}
@@ -85,7 +86,7 @@ public class NaverStockParser implements PageDetailParser {
 			if (!Strings.isNullOrEmpty(cutStringInRange))
 				fluct = Integer.parseInt(cutStringInRange);
 		} catch (Exception e) {
-			System.out.println("error fluct = " + fluct);
+			System.out.println("Can not parse fluct : " + fluct);
 		}
 		return fluct;
 	}
@@ -98,7 +99,7 @@ public class NaverStockParser implements PageDetailParser {
 			if (!Strings.isNullOrEmpty(cutStringInRange))
 				fluctRate = Double.parseDouble(cutStringInRange);
 		} catch (Exception e) {
-			System.out.println("error fluctRate = " + fluctRate);
+			System.out.println("Can not parse fluct rate : " + fluctRate);
 		}
 		return fluctRate;
 	}

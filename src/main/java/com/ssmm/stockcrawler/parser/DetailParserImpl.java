@@ -47,13 +47,15 @@ public class DetailParserImpl implements DetailParser {
 		// TODO Auto-generated method stub
 		Document document = pageReader.read(detailLink.getLink());
 		Detail detail = pageDetailParser.parse(document);
-		if (Objects.isNull(detail)) {
-			System.out.println("(" + Thread.currentThread().getName() + ") " + " can not parse it ");
+
+		if (detail instanceof EmptyDetail) {
+			String.format("(%s) can not parse (%s)", Thread.currentThread().getName(), detail.getResult());
 			return;
 		}
-		detailGenerator.generate(detail, detailLink);
 
-		if (detail instanceof EmptyDetail)
+		if (detailGenerator.generate(detail, detailLink) == 0L) {
+			String.format("(%s) can not generate stock (%s)", Thread.currentThread().getName(), detail.getResult());
 			return;
+		}
 	}
 }

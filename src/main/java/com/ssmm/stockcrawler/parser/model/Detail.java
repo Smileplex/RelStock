@@ -1,7 +1,7 @@
 package com.ssmm.stockcrawler.parser.model;
 
 public class Detail {
-	private String detailJson;
+	private String result;
 
 	public Detail() {
 		// TODO Auto-generated constructor stub
@@ -9,15 +9,15 @@ public class Detail {
 
 	public Detail(String result) {
 		// TODO Auto-generated constructor stub
-		this.detailJson = result;
+		this.result = result;
 	}
 
-	public String getDetailJson() {
-		return detailJson;
+	public String getResult() {
+		return result;
 	}
 
-	public void setDetailJson(String detailJson) {
-		this.detailJson = detailJson;
+	public void setResult(String result) {
+		this.result = result;
 	}
 
 }
