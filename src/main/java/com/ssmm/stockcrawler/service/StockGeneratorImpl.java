@@ -39,7 +39,8 @@ public class StockGeneratorImpl implements DetailGenerator {
 				if (Objects.isNull(searchedStock)) {
 					Stock stock = convertFromResult(stockResult);
 					stockKeywordService.addHasRelation(detailLink.getParentId(), stock);
-					System.out.println(stock + " saved!");
+
+					String.format("(Stock : %s) saved", stock.getName());
 					return stockService.save(stock).getId();
 				}
 				return searchedStock.getId();
@@ -62,8 +63,7 @@ public class StockGeneratorImpl implements DetailGenerator {
 		// TODO Auto-generated method stub
 		Stock stock = new Stock();
 		stock.setName(stockResult.getName());
-		if (!Strings.isNullOrEmpty(stockResult.getCode()))
-			stock.setCode(Integer.parseInt(stockResult.getCode()));
+		stock.setCode(stockResult.getCode());
 		stock.setPricePrev(stockResult.getPrevClose());
 		stock.setPrice(stockResult.getNowVal());
 		stock.setPriceMax(stockResult.getHighVal());
@@ -71,7 +71,8 @@ public class StockGeneratorImpl implements DetailGenerator {
 		stock.setRiseFall(stockResult.getRisefall());
 		stock.setFluct(stockResult.getFluct());
 		stock.setFluctRate(stockResult.getFluctRate());
-		stock.setDateCreated(new Date());
+		stock.setCreatedDate(new Date());
+		stock.setUpdatedDate(new Date());
 		return stock;
 	}
 }

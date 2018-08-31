@@ -13,7 +13,7 @@ public class Stock {
 	@GeneratedValue
 	private Long id;
 	private String name;
-	private int code;
+	private String code;
 	private int pricePrev;
 	private int price;
 	private int priceMax;
@@ -24,8 +24,8 @@ public class Stock {
 	private String chartDaily;
 	private String chartWeekly;
 	private String chartMonthly;
-	private Date dateCreated;
-	private Date dateUpdated;
+	private Date createdDate;
+	private Date updatedDate;
 
 	public Stock() {
 		// TODO Auto-generated constructor stub
@@ -51,11 +51,11 @@ public class Stock {
 		this.name = name;
 	}
 
-	public int getCode() {
+	public String getCode() {
 		return code;
 	}
 
-	public void setCode(int code) {
+	public void setCode(String code) {
 		this.code = code;
 	}
 
@@ -139,20 +139,20 @@ public class Stock {
 		this.chartMonthly = chartMonthly;
 	}
 
-	public Date getDateCreated() {
-		return dateCreated;
+	public Date getCreatedDate() {
+		return createdDate;
 	}
 
-	public void setDateCreated(Date dateCreated) {
-		this.dateCreated = dateCreated;
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
 	}
 
-	public Date getDateUpdated() {
-		return dateUpdated;
+	public Date getUpdatedDate() {
+		return updatedDate;
 	}
 
-	public void setDateUpdated(Date dateUpdated) {
-		this.dateUpdated = dateUpdated;
+	public void setUpdatedDate(Date updatedDate) {
+		this.updatedDate = updatedDate;
 	}
 
 	@Override
@@ -160,7 +160,7 @@ public class Stock {
 		return "Stock [id=" + id + ", name=" + name + ", code=" + code + ", pricePrev=" + pricePrev + ", price=" + price
 				+ ", priceMax=" + priceMax + ", priceMin=" + priceMin + ", fluct=" + fluct + ", fluctRate=" + fluctRate
 				+ ", riseFall=" + riseFall + ", chartDaily=" + chartDaily + ", chartWeekly=" + chartWeekly
-				+ ", chartMonthly=" + chartMonthly + ", dateCreated=" + dateCreated + ", dateUpdated=" + dateUpdated
+				+ ", chartMonthly=" + chartMonthly + ", createdDate=" + createdDate + ", updatedDate=" + updatedDate
 				+ "]";
 	}
 
