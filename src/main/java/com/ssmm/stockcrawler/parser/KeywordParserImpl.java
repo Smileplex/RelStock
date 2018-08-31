@@ -1,11 +1,7 @@
 package com.ssmm.stockcrawler.parser;
 
-import static org.hamcrest.CoreMatchers.instanceOf;
-
-import java.net.URL;
 import java.sql.Timestamp;
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 import org.jsoup.nodes.Document;
 
@@ -14,13 +10,9 @@ import com.ssmm.stockcrawler.controller.DetailLinkQueue;
 import com.ssmm.stockcrawler.controller.KeywordLinkQueue;
 import com.ssmm.stockcrawler.model.DetailLink;
 import com.ssmm.stockcrawler.model.KeywordLink;
-import com.ssmm.stockcrawler.model.StockKeyword;
 import com.ssmm.stockcrawler.parser.model.EmptyKeywordInfo;
-import com.ssmm.stockcrawler.parser.model.EmptyParsingResult;
 import com.ssmm.stockcrawler.parser.model.KeywordInfo;
-import com.ssmm.stockcrawler.parser.model.ParsingResult;
 import com.ssmm.stockcrawler.service.KeywordGenerator;
-import com.ssmm.stockcrawler.service.StockKeywordService;
 
 public class KeywordParserImpl implements KeywordParser {
 	private KeywordLinkQueue keywordLinkQueue;
