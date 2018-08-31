@@ -17,20 +17,22 @@ import com.ssmm.stockcrawler.parser.model.KeywordType;
 public class NaverStockKeywordParser implements PageParser {
 	private final String SEARCH_QUERY = "https://m.search.naver.com/search.naver";
 	private Document pageHtml;
-	private String keywordName;
 
 	@Override
 	public KeywordInfo parse(Document pageHtml) {
 		// TODO Auto-generated method stub
 		this.pageHtml = pageHtml;
-		keywordName = getKeywordName();
 
 		int keywordType = getKeywordType(pageHtml);
 		if (keywordType == KeywordType.NON_STOCK_KEYWORD) {
 			return new EmptyKeywordInfo();
 		}
 
-		return new KeywordInfo(keywordName, keywordType, getRelatedKeywordLinks());
+		return new KeywordInfo(getKeywordName(), keywordType, getRelatedKeywordLinks());
+	}
+
+	private int getKeywordType(Document pageHtml) {
+		return KeywordType.classify(pageHtml);
 	}
 
 	private String getKeywordName() {
@@ -43,10 +45,6 @@ public class NaverStockKeywordParser implements PageParser {
 			e.printStackTrace();
 		}
 		return "";
-	}
-
-	private int getKeywordType(Document pageHtml) {
-		return KeywordType.classify(pageHtml);
 	}
 
 	private List<String> getRelatedKeywordLinks() {
