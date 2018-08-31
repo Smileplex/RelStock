@@ -15,7 +15,6 @@ import com.ssmm.stockcrawler.parser.model.KeywordInfo;
 import com.ssmm.stockcrawler.parser.model.KeywordType;
 
 public class NaverStockKeywordParser implements PageParser {
-	private final String SEARCH_QUERY = "https://m.search.naver.com/search.naver";
 	private Document pageHtml;
 
 	@Override
@@ -62,7 +61,7 @@ public class NaverStockKeywordParser implements PageParser {
 	}
 
 	private String combineLinkWithSearchQuery(Element anchorTag) {
-		return SEARCH_QUERY + anchorTag.attr("href");
+		return NaverStockUrls.SEARCH_QUERY + anchorTag.attr("href");
 	}
 
 }
