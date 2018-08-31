@@ -13,8 +13,6 @@ import com.ssmm.stockcrawler.parser.model.Detail;
 import com.ssmm.stockcrawler.parser.model.EmptyDetail;
 
 public class NaverStockParser implements PageDetailParser {
-	public static final String STOCK_REQUEST_URL = "https://search.naver.com/p/n.search/finance/api/item/itemJson.nhn?_callback=window.__jindo2_callback._575&code=%s";
-	public static final String STOCK_VALUE_URL = "https://polling.finance.naver.com/api/realtime.nhn?_callback=window.__jindo_callback._416&query=SERVICE_ITEM:%s";
 	private final PageReader pageReader;
 	private final ObjectMapper objectMapper;
 
@@ -45,7 +43,7 @@ public class NaverStockParser implements PageDetailParser {
 	}
 
 	private String getJsonStock(Document pageHtml) {
-		Document rawResult = pageReader.read(String.format(STOCK_REQUEST_URL, getStockCode(pageHtml)));
+		Document rawResult = pageReader.read(String.format(NaverStockUrls.STOCK_REQUEST_URL, getStockCode(pageHtml)));
 		return Helper.cutStringInRange(rawResult.toString(), "{\"result\":", ",\"resultCode\"");
 	}
 
@@ -59,7 +57,7 @@ public class NaverStockParser implements PageDetailParser {
 
 	private void setStockPriceValues(StockResult stockResult) {
 		// TODO Auto-generated method stub
-		Document rawResult = pageReader.read(String.format(STOCK_VALUE_URL, stockResult.getCode()));
+		Document rawResult = pageReader.read(String.format(NaverStockUrls.STOCK_VALUE_URL, stockResult.getCode()));
 		stockResult.setNowVal(getStockNowVal(rawResult.toString()));
 		stockResult.setFluct(getStockFluct(rawResult.toString()));
 		stockResult.setFluctRate(getStockFluctRate(rawResult.toString()));
