@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: stockanalytics-api
+  profiles:
+    active: local
+    
+server:
+  port: 8000
+    
+---
+spring:
+  profiles: local
+  data:
+    neo4j:
+      uri: bolt://ec2-52-79-236-230.ap-northeast-2.compute.amazonaws.com:7687
+      username: neo4j
+      password: neo4j
+      
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: none
+
