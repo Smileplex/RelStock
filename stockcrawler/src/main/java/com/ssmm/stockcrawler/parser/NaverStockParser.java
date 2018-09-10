@@ -46,7 +46,7 @@ public class NaverStockParser implements PageDetailParser {
 
 	private String getJsonStock(Document pageHtml) {
 		Document rawResult = pageReader.read(String.format(NaverStockUrls.STOCK_REQUEST_URL, getStockCode(pageHtml)));
-		return Helper.cutStringInRange(rawResult.toString(), "{\"result\":", ",\"resultCode\"");
+		return Helper.cutStringInRange(rawResult.toString(), "\"result\":", "})");
 	}
 
 	private String getStockName(Document document) {

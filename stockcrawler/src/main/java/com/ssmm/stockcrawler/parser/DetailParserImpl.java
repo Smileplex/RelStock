@@ -57,5 +57,7 @@ public class DetailParserImpl implements DetailParser {
 			String.format("(%s) can not generate stock (%s)", Thread.currentThread().getName(), detail.getResult());
 			return;
 		}
+
+		System.out.println(detail.getResult());
 	}
 }

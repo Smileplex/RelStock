@@ -10,16 +10,7 @@ import com.google.inject.internal.SingletonScope;
 import com.ssmm.stockcrawler.AppSettings;
 import com.ssmm.stockcrawler.controller.DetailLinkQueue;
 import com.ssmm.stockcrawler.controller.KeywordLinkQueue;
-import com.ssmm.stockcrawler.parser.DetailParser;
-import com.ssmm.stockcrawler.parser.KeywordParser;
-import com.ssmm.stockcrawler.parser.DetailParserImpl;
-import com.ssmm.stockcrawler.parser.KeywordParserImpl;
-import com.ssmm.stockcrawler.parser.NaverStockKeywordParser;
-import com.ssmm.stockcrawler.parser.NaverStockParser;
-import com.ssmm.stockcrawler.parser.PageDetailParser;
-import com.ssmm.stockcrawler.parser.PageReader;
-import com.ssmm.stockcrawler.parser.PageReaderImpl;
-import com.ssmm.stockcrawler.parser.PageParser;
+import com.ssmm.stockcrawler.parser.*;
 import com.ssmm.stockcrawler.service.DetailGenerator;
 import com.ssmm.stockcrawler.service.KeywordGenerator;
 import com.ssmm.stockcrawler.service.StockGeneratorImpl;
@@ -41,7 +32,8 @@ public class CrawlerModule extends AbstractModule {
 		bind(PageReader.class).to(PageReaderImpl.class);
 		bind(PageParser.class).to(NaverStockKeywordParser.class);
 		bind(PageDetailParser.class).to(NaverStockParser.class);
-		
+
+		bind(StockPriceValues.class).to(StockPriceValuesImpl.class);
 		bind(StockKeywordService.class).to(StockKeywordServiceImpl.class);
 		bind(StockService.class).to(StockServiceImpl.class);
 		bind(KeywordGenerator.class).to(StockKeywordGeneratorImpl.class);
@@ -51,5 +43,6 @@ public class CrawlerModule extends AbstractModule {
 		bind(DetailLinkQueue.class).toInstance(new DetailLinkQueue());
 		
 		bind(ObjectMapper.class).toInstance(new ObjectMapper());
+
 	}
 }
