@@ -5,34 +5,34 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssmm.stockanalytics_api.model.Stock;
 import com.ssmm.stockanalytics_api.model.StockKeyword;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
-public class StockKeywordSearchResource {
-    private List<Node> nodes;
-    private List<Link> links;
+public class D3SearchResource {
+    private Set<Node> nodes;
+    private Set<Link> links;
 
-    public StockKeywordSearchResource() {
+    public D3SearchResource() {
     }
 
-    public StockKeywordSearchResource(List<StockKeyword> stockKeywords) throws Exception {
-        nodes = new ArrayList<>();
-        links = new ArrayList<>();
+    public D3SearchResource(List<StockKeyword> stockKeywords) throws Exception {
+        nodes = new HashSet<>();
+        links = new HashSet<>();
         ObjectMapper objectMapper = new ObjectMapper();
 
         for (StockKeyword stockKeyword : stockKeywords) {
             Stock stock = stockKeyword.getStock();
 
             Map properties;
+            String labelType;
             if (Objects.nonNull(stockKeyword.getStock())) {
                 properties = objectMapper.convertValue(stock, Map.class);
+                labelType = "Stock";
             } else {
                 properties = objectMapper.convertValue(stockKeyword, Map.class);
+                labelType = "StockKeyword";
             }
 
-            Node node = new Node(stockKeyword.getId(), stockKeyword.getName(), stockKeyword.getClass().getSimpleName(), properties);
+            Node node = new Node(stockKeyword.getId(), stockKeyword.getName(), labelType, properties);
             nodes.add(node);
 
             if (Objects.nonNull(stockKeyword.getStockKeywords())) {
@@ -44,25 +44,25 @@ public class StockKeywordSearchResource {
         }
     }
 
-    public List<Node> getNodes() {
+    public Set<Node> getNodes() {
         return nodes;
     }
 
-    public void setNodes(List<Node> nodes) {
+    public void setNodes(Set<Node> nodes) {
         this.nodes = nodes;
     }
 
-    public List<Link> getLinks() {
+    public Set<Link> getLinks() {
         return links;
     }
 
-    public void setLinks(List<Link> links) {
+    public void setLinks(Set<Link> links) {
         this.links = links;
     }
 
     @Override
     public String toString() {
-        return "StockKeywordSearchResource{" +
+        return "D3SearchResource{" +
                 "nodes=" + nodes +
                 ", links=" + links +
                 '}';
