@@ -22,7 +22,7 @@ public class StockSearchController {
     @RequestMapping(value = "/stock/{id}", method = RequestMethod.GET)
     public ResponseEntity<Stock> findStockById(@PathVariable("id") Long id) {
         Stock stock = stockService.find(id);
-        System.out.println(stock.toString());
+
         if (Objects.isNull(stock))
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 

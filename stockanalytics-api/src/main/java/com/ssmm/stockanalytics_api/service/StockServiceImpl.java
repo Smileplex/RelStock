@@ -21,10 +21,15 @@ public class StockServiceImpl extends GenericService<Stock> implements StockServ
     }
 
     @Override
-    public Stock findByCode(int code) {
+    public Stock find(Long id) {
+        return super.find(id);
+    }
+
+    @Override
+    public Stock findByCode(String code) {
         Map<String, Object> params = new HashMap<>();
         params.put("code", code);
         return session.queryForObject(getEntityType(), "match (n:Stock{code:{code}}) return n", params);
-
     }
+
 }

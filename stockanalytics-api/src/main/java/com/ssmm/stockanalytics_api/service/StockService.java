@@ -3,6 +3,5 @@ package com.ssmm.stockanalytics_api.service;
 import com.ssmm.stockanalytics_api.model.Stock;
 
 public interface StockService extends Service<Stock> {
-	Stock findByCode(int code);
-	Stock findByName(String name);
+	Stock findByCode(String code);
 }

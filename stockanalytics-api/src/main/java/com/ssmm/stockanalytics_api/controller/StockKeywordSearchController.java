@@ -21,12 +21,11 @@ import java.util.Objects;
 @RestController
 @RequestMapping(ApiConstants.SEARCH_ENDPOINT)
 public class StockKeywordSearchController {
-    private StockService stockService;
+    @Autowired
     private StockKeywordService stockKeywordService;
 
     @Autowired
-    public StockKeywordSearchController(StockService stockService, StockKeywordService stockKeywordService) {
-        this.stockService = stockService;
+    public StockKeywordSearchController(StockKeywordService stockKeywordService) {
         this.stockKeywordService = stockKeywordService;
     }
 
