@@ -22,11 +22,13 @@ public class StockKeywordGeneratorImpl implements KeywordGenerator {
 	public Long generate(KeywordInfo keywordInfo, KeywordLink keywordLink) {
 		// TODO Auto-generated method stub
 		StockKeyword searchedKeyword = stockKeywordService.findByName(keywordInfo.getKeywordName());
-		if (Objects.nonNull(searchedKeyword)) {
-			searchedKeyword.setUpdatedDate(new Date());
-			return stockKeywordService.save(searchedKeyword).getId();
+		if (Objects.isNull(searchedKeyword)) {
+			return createStockKeyword(keywordInfo, keywordLink);
 		}
+		return updateStockKeyword(searchedKeyword);
+	}
 
+	private Long createStockKeyword(KeywordInfo keywordInfo, KeywordLink keywordLink) {
 		StockKeyword entity = new StockKeyword();
 		entity.setAgentId(keywordLink.getAgentId());
 		entity.setName(keywordInfo.getKeywordName());
@@ -40,5 +42,10 @@ public class StockKeywordGeneratorImpl implements KeywordGenerator {
 		if (Objects.nonNull(relatedKeyword))
 			entity.addStockKeyword(relatedKeyword);
 		return stockKeywordService.save(entity).getId();
+	}
+
+	private Long updateStockKeyword(StockKeyword searchedKeyword) {
+		searchedKeyword.setUpdatedDate(new Date());
+		return stockKeywordService.save(searchedKeyword).getId();
 	}
 }
