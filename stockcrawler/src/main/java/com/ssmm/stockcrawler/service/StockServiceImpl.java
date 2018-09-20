@@ -46,9 +46,9 @@ public class StockServiceImpl extends GenericService<Stock> implements StockServ
 //			stock.setFluct(stockResult.getRisefall());
 //			stock.setFluctRate(stockResult.getPriceChangeRate());
 //			stock.setRiseFall(stockResult.getRisefall());
-//			stock.setChartDaily(stockResult.getChartDailyUrl());
-//			stock.setChartWeekly(stockResult.getChartWeeklyUrl());
-//			stock.setChartMonthly(stockResult.getChartMonthlyUrl());
+//			stock.setDailyChart(stockResult.getChartDailyUrl());
+//			stock.setWeeklyChart(stockResult.getChartWeeklyUrl());
+//			stock.setMonthlyChart(stockResult.getChartMonthlyUrl());
 //			stock.setDateCreated(new Date());
 //			stock.setDateUpdated(new Date());
 

@@ -27,9 +27,8 @@ public class NaverStockParser implements PageDetailParser {
 	@Override
 	public Detail parse(Document pageHtml) {
 		// TODO Auto-generated method stub
-		StockResult stockResult;
 		try {
-			stockResult = objectMapper.readValue(getJsonStock(pageHtml), StockResult.class);
+			StockResult stockResult = objectMapper.readValue(getJsonStock(pageHtml), StockResult.class);
 			stockResult.setName(getStockName(pageHtml));
 			stockResult.setCode(getStockCode(pageHtml));
 
@@ -45,7 +44,7 @@ public class NaverStockParser implements PageDetailParser {
 	}
 
 	private String getJsonStock(Document pageHtml) {
-		Document rawResult = pageReader.read(String.format(NaverStockUrls.STOCK_REQUEST_URL, getStockCode(pageHtml)));
+		Document rawResult = pageReader.read(String.format(NaverStockUrls.STOCK_REQUEST_URL, getStockCode(pageHtml),getStockCode(pageHtml)));
 		return Helper.cutStringInRange(rawResult.toString(), "\"result\":", "})");
 	}
 

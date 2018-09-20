@@ -1,78 +1,90 @@
 package com.ssmm.stockcrawler.service;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.inject.Inject;
+import com.ssmm.stockcrawler.model.DetailLink;
+import com.ssmm.stockcrawler.model.Stock;
+import com.ssmm.stockcrawler.model.StockResult;
+import com.ssmm.stockcrawler.parser.model.Detail;
+
 import java.io.IOException;
 import java.util.Date;
 import java.util.Objects;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.Strings;
-import com.google.inject.Inject;
-import com.ssmm.stockcrawler.model.DetailLink;
-import com.ssmm.stockcrawler.model.Stock;
-import com.ssmm.stockcrawler.model.StockKeyword;
-import com.ssmm.stockcrawler.model.StockResult;
-import com.ssmm.stockcrawler.parser.model.Detail;
-
 public class StockGeneratorImpl implements DetailGenerator {
-	private StockService stockService;
-	private StockKeywordService stockKeywordService;
-	private ObjectMapper objectMapper;
+    private StockService stockService;
+    private StockKeywordService stockKeywordService;
+    private ObjectMapper objectMapper;
 
-	@Inject
-	public StockGeneratorImpl(StockService stockService, StockKeywordService stockKeywordService,
-			ObjectMapper objectMapper) {
-		this.stockService = stockService;
-		this.stockKeywordService = stockKeywordService;
-		// TODO Auto-generated constructor stub
-		this.objectMapper = objectMapper;
-	}
+    @Inject
+    public StockGeneratorImpl(StockService stockService, StockKeywordService stockKeywordService,
+                              ObjectMapper objectMapper) {
+        this.stockService = stockService;
+        this.stockKeywordService = stockKeywordService;
+        // TODO Auto-generated constructor stub
+        this.objectMapper = objectMapper;
+    }
 
-	@Override
-	public Long generate(Detail detail, DetailLink detailLink) {
-		// TODO Auto-generated method stub
-		try {
-			StockResult stockResult = objectMapper.readValue(detail.getResult(), StockResult.class);
-			if (Objects.nonNull(stockResult)) {
-				Stock searchedStock = stockService.findByName(stockResult.getName());
-				if (Objects.isNull(searchedStock)) {
-					Stock stock = convertFromResult(stockResult);
-					stockKeywordService.addHasRelation(detailLink.getParentId(), stock);
+    @Override
+    public Long generate(Detail detail, DetailLink detailLink) {
+        // TODO Auto-generated method stub
+        try {
+            StockResult stockResult = objectMapper.readValue(detail.getResult(), StockResult.class);
+            if (Objects.isNull(stockResult))
+                return 0L;
 
-					String.format("(Stock : %s) saved", stock.getName());
-					return stockService.save(stock).getId();
-				}
-				return searchedStock.getId();
-			}
-		} catch (JsonParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JsonMappingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return 0L;
-	}
+            Stock searchedStock = stockService.findByName(stockResult.getName());
+            if (Objects.isNull(searchedStock)) {
+                return createStock(detailLink, stockResult);
+            }
 
-	// {"name":"LG전자","code":"066570","end":0,"marketSum":12175397,"risefall":5,"tradeStopYn":"N","openVal":74400,"volumeTrade":699292,"prevClose":74700,"highVal":75200,"lowVal":73700,"frgnAcqRatio":32.66,"faceVal":5000,"high52week":114500,"low52week":70800,"meetingDate":"20180316","debtRatio":180.918,"dividend":400}
-	private Stock convertFromResult(StockResult stockResult) {
-		// TODO Auto-generated method stub
-		Stock stock = new Stock();
-		stock.setName(stockResult.getName());
-		stock.setCode(stockResult.getCode());
-		stock.setPricePrev(stockResult.getPrevClose());
-		stock.setPrice(stockResult.getNowVal());
-		stock.setPriceMax(stockResult.getHighVal());
-		stock.setPriceMin(stockResult.getLowVal());
-		stock.setRiseFall(stockResult.getRisefall());
-		stock.setFluct(stockResult.getFluct());
-		stock.setFluctRate(stockResult.getFluctRate());
-		stock.setCreatedDate(new Date());
-		stock.setUpdatedDate(new Date());
-		return stock;
-	}
+            return updateStock(searchedStock, stockResult);
+
+        } catch (JsonParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (JsonMappingException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return 0L;
+    }
+
+    private Long createStock(DetailLink detailLink, StockResult stockResult) {
+        Stock stock = convertFromResult(new Stock(), stockResult);
+        stockKeywordService.addHasRelation(detailLink.getParentId(), stock);
+
+        System.out.println(String.format("(Stock : %s) saved", stock.getName()));
+        return stockService.save(stock).getId();
+    }
+
+    private Long updateStock(Stock searchedStock, StockResult stockResult) {
+        System.out.println(String.format("(Stock : %s) updated", searchedStock.getName()));
+        return convertFromResult(searchedStock, stockResult).getId();
+    }
+
+    private Stock convertFromResult(Stock entity, StockResult stockResult) {
+        entity.setName(stockResult.getName());
+        entity.setCode(stockResult.getCode());
+        entity.setPricePrev(stockResult.getPrevClose());
+        entity.setPrice(stockResult.getNowVal());
+        entity.setPriceMax(stockResult.getHighVal());
+        entity.setPriceMin(stockResult.getLowVal());
+        entity.setRiseFall(stockResult.getRisefall());
+        entity.setFluct(stockResult.getFluct());
+        entity.setFluctRate(stockResult.getFluctRate());
+        if (Objects.isNull(entity.getCreatedDate())) {
+            entity.setCreatedDate(new Date());
+        }
+        entity.setUpdatedDate(new Date());
+        entity.setDailyChart(stockResult.getDailyChartUrl());
+        entity.setWeeklyChart(stockResult.getWeeklyChartUrl());
+        entity.setMonthlyChart(stockResult.getMonthlyChartUrl());
+        return entity;
+    }
 }

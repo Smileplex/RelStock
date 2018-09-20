@@ -1,6 +1,5 @@
 package com.ssmm.stockcrawler.model;
 
-import java.sql.Timestamp;
 import java.util.Date;
 
 import org.neo4j.ogm.annotation.GeneratedValue;
@@ -21,9 +20,9 @@ public class Stock {
 	private int fluct;
 	private Double fluctRate;
 	private int riseFall;
-	private String chartDaily;
-	private String chartWeekly;
-	private String chartMonthly;
+	private String dailyChart;
+	private String weeklyChart;
+	private String monthlyChart;
 	private Date createdDate;
 	private Date updatedDate;
 
@@ -115,28 +114,28 @@ public class Stock {
 		this.riseFall = riseFall;
 	}
 
-	public String getChartDaily() {
-		return chartDaily;
+	public String getDailyChart() {
+		return dailyChart;
 	}
 
-	public void setChartDaily(String chartDaily) {
-		this.chartDaily = chartDaily;
+	public void setDailyChart(String dailyChart) {
+		this.dailyChart = dailyChart;
 	}
 
-	public String getChartWeekly() {
-		return chartWeekly;
+	public String getWeeklyChart() {
+		return weeklyChart;
 	}
 
-	public void setChartWeekly(String chartWeekly) {
-		this.chartWeekly = chartWeekly;
+	public void setWeeklyChart(String weeklyChart) {
+		this.weeklyChart = weeklyChart;
 	}
 
-	public String getChartMonthly() {
-		return chartMonthly;
+	public String getMonthlyChart() {
+		return monthlyChart;
 	}
 
-	public void setChartMonthly(String chartMonthly) {
-		this.chartMonthly = chartMonthly;
+	public void setMonthlyChart(String monthlyChart) {
+		this.monthlyChart = monthlyChart;
 	}
 
 	public Date getCreatedDate() {
@@ -159,8 +158,8 @@ public class Stock {
 	public String toString() {
 		return "Stock [id=" + id + ", name=" + name + ", code=" + code + ", pricePrev=" + pricePrev + ", price=" + price
 				+ ", priceMax=" + priceMax + ", priceMin=" + priceMin + ", fluct=" + fluct + ", fluctRate=" + fluctRate
-				+ ", riseFall=" + riseFall + ", chartDaily=" + chartDaily + ", chartWeekly=" + chartWeekly
-				+ ", chartMonthly=" + chartMonthly + ", createdDate=" + createdDate + ", updatedDate=" + updatedDate
+				+ ", riseFall=" + riseFall + ", dailyChart=" + dailyChart + ", weeklyChart=" + weeklyChart
+				+ ", monthlyChart=" + monthlyChart + ", createdDate=" + createdDate + ", updatedDate=" + updatedDate
 				+ "]";
 	}
 

@@ -58,6 +58,5 @@ public class DetailParserImpl implements DetailParser {
 			return;
 		}
 
-		System.out.println(detail.getResult());
 	}
 }
