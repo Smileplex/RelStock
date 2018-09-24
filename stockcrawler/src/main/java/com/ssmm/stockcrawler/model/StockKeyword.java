@@ -1,8 +1,8 @@
 package com.ssmm.stockcrawler.model;
 
-import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.neo4j.ogm.annotation.GeneratedValue;
@@ -22,6 +22,7 @@ public class StockKeyword {
 	private Date updatedDate;
 	private int type;
 	private int status;
+	private String articles;
 
 	@Relationship(type = "RELATED_TO")
 	private Set<StockKeyword> stockKeywords;
@@ -120,4 +121,11 @@ public class StockKeyword {
 		stockKeywords.add(stockKeyword);
 	}
 
+	public String getArticles() {
+		return articles;
+	}
+
+	public void setArticles(String articles) {
+		this.articles = articles;
+	}
 }

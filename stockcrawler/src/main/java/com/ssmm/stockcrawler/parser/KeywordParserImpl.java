@@ -3,6 +3,7 @@ package com.ssmm.stockcrawler.parser;
 import java.sql.Timestamp;
 import java.util.Date;
 
+import com.ssmm.stockcrawler.parser.model.KeywordInfo;
 import org.jsoup.nodes.Document;
 
 import com.google.inject.Inject;
@@ -11,7 +12,6 @@ import com.ssmm.stockcrawler.controller.KeywordLinkQueue;
 import com.ssmm.stockcrawler.model.DetailLink;
 import com.ssmm.stockcrawler.model.KeywordLink;
 import com.ssmm.stockcrawler.parser.model.EmptyKeywordInfo;
-import com.ssmm.stockcrawler.parser.model.KeywordInfo;
 import com.ssmm.stockcrawler.service.KeywordGenerator;
 
 public class KeywordParserImpl implements KeywordParser {

@@ -1,23 +1,15 @@
 package com.ssmm.stockcrawler.parser;
 
-import java.net.URL;
-import java.util.Objects;
-import java.util.concurrent.TimeUnit;
-
 import org.jsoup.nodes.Document;
 
 import com.google.inject.Inject;
 import com.ssmm.stockcrawler.controller.DetailLinkQueue;
-import com.ssmm.stockcrawler.controller.KeywordLinkQueue;
 import com.ssmm.stockcrawler.model.DetailLink;
 import com.ssmm.stockcrawler.parser.model.Detail;
 import com.ssmm.stockcrawler.parser.model.EmptyDetail;
-import com.ssmm.stockcrawler.parser.model.EmptyKeywordInfo;
-import com.ssmm.stockcrawler.parser.model.KeywordInfo;
 import com.ssmm.stockcrawler.service.DetailGenerator;
 
 public class DetailParserImpl implements DetailParser {
-
 	private DetailLinkQueue detailLinkQueue;
 	private PageReader pageReader;
 	private PageDetailParser pageDetailParser;

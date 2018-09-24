@@ -3,8 +3,9 @@ package com.ssmm.stockcrawler.service;
 import java.util.Date;
 import java.util.Objects;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.inject.Inject;
-import com.ssmm.stockcrawler.controller.KeywordLinkQueue;
 import com.ssmm.stockcrawler.model.KeywordLink;
 import com.ssmm.stockcrawler.model.StockKeyword;
 import com.ssmm.stockcrawler.parser.model.KeywordInfo;
@@ -15,7 +16,6 @@ public class StockKeywordGeneratorImpl implements KeywordGenerator {
 	@Inject
 	public StockKeywordGeneratorImpl(StockKeywordService stockKeywordService) {
 		this.stockKeywordService = stockKeywordService;
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -25,7 +25,7 @@ public class StockKeywordGeneratorImpl implements KeywordGenerator {
 		if (Objects.isNull(searchedKeyword)) {
 			return createStockKeyword(keywordInfo, keywordLink);
 		}
-		return updateStockKeyword(searchedKeyword);
+		return updateStockKeyword(searchedKeyword, keywordInfo);
 	}
 
 	private Long createStockKeyword(KeywordInfo keywordInfo, KeywordLink keywordLink) {
@@ -37,15 +37,18 @@ public class StockKeywordGeneratorImpl implements KeywordGenerator {
 		entity.setUpdatedDate(new Date());
 		entity.setType(keywordInfo.getKeywordType());
 		entity.setStatus(1);
+		entity.setArticles(keywordInfo.getKeywordArticles());
 
 		StockKeyword relatedKeyword = stockKeywordService.find(keywordLink.getParentId());
 		if (Objects.nonNull(relatedKeyword))
 			entity.addStockKeyword(relatedKeyword);
+
 		return stockKeywordService.save(entity).getId();
 	}
 
-	private Long updateStockKeyword(StockKeyword searchedKeyword) {
+	private Long updateStockKeyword(StockKeyword searchedKeyword, KeywordInfo keywordInfo) {
 		searchedKeyword.setUpdatedDate(new Date());
+		searchedKeyword.setArticles(keywordInfo.getKeywordArticles());
 		return stockKeywordService.save(searchedKeyword).getId();
 	}
 }
