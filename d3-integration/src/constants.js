@@ -1,4 +1,4 @@
-export const width=960;
-export const height=640;
+export const width=1280;
+export const height=1024;
 
 

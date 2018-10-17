@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "d3": "^5.7.0",
+    "d3": "^4.4.3",
     "immutable": "^3.8.2",
     "prop-types": "latest",
     "react": "^16.5.2",

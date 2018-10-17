@@ -1,19 +1,17 @@
 import React from 'react'
 import PropTypes from "prop-types"
+import * as d3 from "d3";
 
 const StockMap = ({width, height, children}) => {
-    console.log(width);
     return (
         <svg width={width} height={height}>
-            {children}
+            {
+                children
+            }
         </svg>
     )
-};
-
-StockMap.propTypes = {
-    width: PropTypes.number,
-    height: PropTypes.number,
-    children: PropTypes.node,
 }
+
+
 
 export default StockMap;
