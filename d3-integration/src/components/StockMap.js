@@ -9,6 +9,8 @@ const StockMap = ({width, height, children}) => {
                 children
             }
         </svg>
+
+
     )
 }
 

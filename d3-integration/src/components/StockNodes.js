@@ -10,13 +10,13 @@ class StockNodes extends React.Component{
             .force('y', d3.forceY().strength(forceStrength).y(center.y))
             .force('charge', d3.forceManyBody().strength(this.charge))
             .force("collide", d3.forceCollide(function(d){
-                return d.radius * 1.2;
+                return d.radius * 1.4;
             }).strength(0.8))
             .on("tick", this.ticked).stop();
 
         const self = this;
         d3.interval(function(){
-            // self.renderStockNodes(self.props.data2);
+
         },2000);
         this.state = {
             g: null,
@@ -31,16 +31,15 @@ class StockNodes extends React.Component{
     }
 
     renderStockNodes = (data) =>{
-
         const circle = this.state.g.selectAll('circle').data(data, d => d.id);
         circle.exit().remove();
-        circle.enter().append('circle').classed('bubble', true)
+        circle.enter().append('circle').attr('class', d => d.type)
             .attr('id', d => d.id)
             .attr('r', d => d.radius)
             .attr('cx', d => d.x)
             .attr('cy', d => d.y)
-            .attr('stroke-width', 2)
-            .attr('opacity', 0.5)
+            .attr('stroke-width', 4)
+            // .attr('opacity', 0.5)
             .on('mouseover', this.switchRadius.bind(this,300))
             .on('mouseout', this.switchRadius.bind(this,0))// eslint-disable-line
 
@@ -50,15 +49,37 @@ class StockNodes extends React.Component{
             return d.value;
         }).attr('dx', function(d){return d.x}).attr('dy', function(d){return d.y});
 
+        const detail = this.state.g.selectAll('foreignObject').data(data, d => d.id);
+        detail.exit().remove();
+        detail.enter().append('foreignObject')
+            .attr('x',d=>d.x).attr('y',d=>d.y).attr('width', 100).attr('height', 100);
+
         this.simulation.nodes(data).alpha(1).restart();
     }
 
     onRef = (ref) => {
-        this.setState({g: d3.select(ref)})
+        this.setState({g: d3.select(ref)}, ()=>{
+            d3.select('svg').append("linearGradient")
+                .attr("id", "linearGrad")
+                .attr("gradientUnits", "userSpaceOnUse")
+                .attr("x1", "0%").attr("y1", "100%")
+                .attr("x2", "100%").attr("y2", "0%")
+                .selectAll("stop")
+                .data([
+                    {offset: "0%", color: "rgb(255,15,119)"},
+                    {offset: "42%", color: "rgb(182,9,164)"},
+                    {offset: "73%", color: "rgb(128,6,119)"},
+                    {offset: "89%", color: "rgb(128,6,119)"}
+                ])
+                .enter().append("stop")
+                .attr("offset", function(d) { return d.offset; })
+                .attr("stop-color", function(d) { return d.color; });
+        })
     }
     ticked = () => {
         this.state.g.selectAll('circle').attr('cx', d => d.x).attr('cy', d => d.y)
         this.state.g.selectAll('text').attr('dx', d => d.x).attr('dy', d=>d.y)
+        this.state.g.selectAll('foreignObject').attr('x', d => d.x - (d.radius / 2)).attr('y', d=>d.y - (d.radius / 2));
     }
 
     charge = (d) => {
@@ -71,7 +92,7 @@ class StockNodes extends React.Component{
             newRadius = target.prevRadius;
 
         const self = this;
-        d3.selectAll('.bubble').filter(function(t){
+        d3.selectAll('circle').filter(function(t){
             return t.id === target.id;
         }).transition().duration(500).tween('radius', function(d){
             const that = d3.select(this);
@@ -83,6 +104,8 @@ class StockNodes extends React.Component{
                 });
                 self.simulation.nodes(self.props.data);
             }
+        }).on("end",function(d){
+
         });
         this.simulation.alpha(1).restart();
     }

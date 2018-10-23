@@ -16,6 +16,7 @@ export function createNodes(rawData){
         year: d.start_year,
         x: Math.random() * 900,
         y: Math.random() * 800,
+        type: d.type,
     }))
 
     myNodes.sort((a,b)=> b.value = a.value);
