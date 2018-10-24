@@ -39,44 +39,45 @@ class StockNodes extends React.Component{
             .attr('cx', d => d.x)
             .attr('cy', d => d.y)
             .attr('stroke-width', 4)
-            // .attr('opacity', 0.5)
             .on('mouseover', this.switchRadius.bind(this,300))
-            .on('mouseout', this.switchRadius.bind(this,0))// eslint-disable-line
-
-        const text = this.state.g.selectAll('text').data(data, d => d.id);
-        text.exit().remove();
-        text.enter().append('text').text(function(d){
-            return d.value;
-        })
-            .attr('dx', function(d){return d.x})
-            .attr('dy', function(d){return d.y});
+            .on('mouseout', this.switchRadius.bind(this,0))
 
         const base = this.state.g.selectAll('.base').data(data, d => d.id);
         base.exit().remove();
-        let baseEnter = base.enter().append('foreignObject')
+
+        let baseEnter = base.enter().filter(d=>d.type==='a').append('foreignObject')
             .attr('class', 'base')
             .attr('x',d=>d.x)
             .attr('y',d=>d.y)
-            .attr('width', 30)
-            .attr('height', 30);
+            .attr('width', d=>d.radius*2)
+            .attr('height', d=>d.radius*2);
 
+        let baseDiv = baseEnter.append("xhtml:div");
+        baseDiv.html((d)=>
+            "<div class='stock-name'>"+d.name+"</div>"+
+            "<div class='stock-code'>"+d.code+"&nbsp;|&nbsp; KOSPI</div>"+
+            "<hr/>"+
+            "<div class='stock-values "+d.arrow+"'>"+
+            "<div class='stock-price'><i class='fas fa-caret-"+d.arrow+"' style='font-size:20px;'></i>&nbsp; "+Number(d.price).toLocaleString()+"</div>"+
+            "<div class='stock-fluct'>"+Math.abs(d.fluct).toLocaleString()+"(-1.41%)</div>"+
+            "</div>"
+        );
 
         const detail = this.state.g.selectAll('.detail').data(data, d => d.id);
         detail.exit().remove();
-        let detailEnter = detail.enter().append('foreignObject').attr('class', 'detail')
+        let detailEnter = detail.enter().append('foreignObject')
+            .attr('class', 'detail')
             .attr('x',d=>d.x)
             .attr('y',d=>d.y)
             .attr('width', 440)
             .attr('height', 400);
 
-        let div = detailEnter.append('xhtml:div').append('div')
-        div.append('p')
+        let detailDiv = detailEnter.append('xhtml:div');
+        detailDiv.append('p')
             .attr('class', 'lead')
             .html('Holmes was certainly not a difficult man to live with.');
-        div.append('p')
+        detailDiv.append('p')
             .html('He was quiet in his ways, and his habits were regular. It was rare for him to be up after ten at night, and he had invariably breakfasted and gone out before I rose in the morning.');
-
-        // detail.attr('height', foHeight);
 
         this.simulation.nodes(data).alpha(1).restart();
     }
@@ -102,9 +103,8 @@ class StockNodes extends React.Component{
     }
     ticked = () => {
         this.state.g.selectAll('circle').attr('cx', d => d.x).attr('cy', d => d.y)
-        this.state.g.selectAll('text').attr('dx', d => d.x).attr('dy', d=>d.y)
-        this.state.g.selectAll('.detail').attr('x', d => d.x - 220).attr('y', d=>d.y - 200);
-        this.state.g.selectAll('.base').attr('x', d => d.x).attr('y', d=>d.y);
+        this.state.g.selectAll('.detail').attr('x', d => d.x - d.radius).attr('y', d=>d.y - d.radius);
+        this.state.g.selectAll('.base').attr('x', d => d.x - d.radius).attr('y', d=>d.y - d.radius);
     }
 
     charge = (d) => {
@@ -114,19 +114,25 @@ class StockNodes extends React.Component{
 
     switchRadius = (newRadius, target) => {
         let visible = true;
-        let detail = d3.selectAll('foreignObject').filter(function(t){
+
+        let detail = d3.selectAll('foreignObject.detail').filter(function(t){
+            return t.id === target.id
+        });
+
+        let base = d3.selectAll('foreignObject.base').filter(function(t){
             return t.id === target.id
         });
 
         if(newRadius === 0){
-            newRadius = target.prevRadius;
-            detail.style('display', 'none');
             visible = false;
+            detail.style('display', 'none');
+            newRadius = target.prevRadius;
         }
         const self = this;
         d3.selectAll('circle').filter(function(t){
             return t.id === target.id;
-        }).transition().duration(500).tween('radius', function(d){
+        }).transition().duration(300).tween('radius', function(d){
+            base.style('display', 'none');
             const that = d3.select(this);
             const i = d3.interpolate(d.radius, newRadius);
             return function(t){
@@ -137,8 +143,14 @@ class StockNodes extends React.Component{
                 self.simulation.nodes(self.props.data);
             }
         }).on("end",function(d){
-            if(visible) detail.style('display','block');
-
+            if(visible) {
+                detail
+                    .attr('width',d.radius*2)
+                    .attr('height',d.radius*2)
+                    .style('display','block');
+            }else{
+                base.style('display', 'block');
+            }
         });
         this.simulation.alpha(1).restart();
     }
@@ -153,24 +165,6 @@ class StockNodes extends React.Component{
         )
     }
 }
-
-export function showDetail(d){
-    // d3.select(this).transition().duration(2000).attr('transform', function(d){
-    //     var cx = d3.select(this).attr('cx');
-    //     var dx =  500 - 100;
-    //     var dy =  500 - 120;
-    //     return "translate("+dx+","+dy+")";
-    // }).attr('r', 100);
-    // console.log('data', this);
-
-
-
-}
-
-export function hideDetail(d){
-    d3.select(this).transition().duration(2000).attr('r',3);
-}
-
 
 StockNodes.propTypes = {
     center: PropTypes.shape({
