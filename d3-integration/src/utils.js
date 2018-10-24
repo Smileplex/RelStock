@@ -3,7 +3,7 @@ import * as d3 from 'd3'
 export function createNodes(rawData){
     const maxAmount = d3.max(rawData, d=> +d.total_amount);
 
-    const radiusScale = d3.scalePow().exponent(0.5).range([2, 85]).domain([0, maxAmount]);
+    const radiusScale = d3.scalePow().exponent(0.1).range([2, 100]).domain([0, maxAmount]);
 
     const myNodes = rawData.map(d => ({
         id: d.id,

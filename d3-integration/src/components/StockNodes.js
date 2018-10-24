@@ -47,12 +47,36 @@ class StockNodes extends React.Component{
         text.exit().remove();
         text.enter().append('text').text(function(d){
             return d.value;
-        }).attr('dx', function(d){return d.x}).attr('dy', function(d){return d.y});
+        })
+            .attr('dx', function(d){return d.x})
+            .attr('dy', function(d){return d.y});
 
-        const detail = this.state.g.selectAll('foreignObject').data(data, d => d.id);
+        const base = this.state.g.selectAll('.base').data(data, d => d.id);
+        base.exit().remove();
+        let baseEnter = base.enter().append('foreignObject')
+            .attr('class', 'base')
+            .attr('x',d=>d.x)
+            .attr('y',d=>d.y)
+            .attr('width', 30)
+            .attr('height', 30);
+
+
+        const detail = this.state.g.selectAll('.detail').data(data, d => d.id);
         detail.exit().remove();
-        detail.enter().append('foreignObject')
-            .attr('x',d=>d.x).attr('y',d=>d.y).attr('width', 100).attr('height', 100);
+        let detailEnter = detail.enter().append('foreignObject').attr('class', 'detail')
+            .attr('x',d=>d.x)
+            .attr('y',d=>d.y)
+            .attr('width', 440)
+            .attr('height', 400);
+
+        let div = detailEnter.append('xhtml:div').append('div')
+        div.append('p')
+            .attr('class', 'lead')
+            .html('Holmes was certainly not a difficult man to live with.');
+        div.append('p')
+            .html('He was quiet in his ways, and his habits were regular. It was rare for him to be up after ten at night, and he had invariably breakfasted and gone out before I rose in the morning.');
+
+        // detail.attr('height', foHeight);
 
         this.simulation.nodes(data).alpha(1).restart();
     }
@@ -79,7 +103,8 @@ class StockNodes extends React.Component{
     ticked = () => {
         this.state.g.selectAll('circle').attr('cx', d => d.x).attr('cy', d => d.y)
         this.state.g.selectAll('text').attr('dx', d => d.x).attr('dy', d=>d.y)
-        this.state.g.selectAll('foreignObject').attr('x', d => d.x - (d.radius / 2)).attr('y', d=>d.y - (d.radius / 2));
+        this.state.g.selectAll('.detail').attr('x', d => d.x - 220).attr('y', d=>d.y - 200);
+        this.state.g.selectAll('.base').attr('x', d => d.x).attr('y', d=>d.y);
     }
 
     charge = (d) => {
@@ -88,9 +113,16 @@ class StockNodes extends React.Component{
 
 
     switchRadius = (newRadius, target) => {
-        if(newRadius === 0)
-            newRadius = target.prevRadius;
+        let visible = true;
+        let detail = d3.selectAll('foreignObject').filter(function(t){
+            return t.id === target.id
+        });
 
+        if(newRadius === 0){
+            newRadius = target.prevRadius;
+            detail.style('display', 'none');
+            visible = false;
+        }
         const self = this;
         d3.selectAll('circle').filter(function(t){
             return t.id === target.id;
@@ -105,6 +137,7 @@ class StockNodes extends React.Component{
                 self.simulation.nodes(self.props.data);
             }
         }).on("end",function(d){
+            if(visible) detail.style('display','block');
 
         });
         this.simulation.alpha(1).restart();

@@ -43,6 +43,16 @@
 .b text{
   color:#fff;
 }
-foreignObject{
+text{
+  pointer-events: none;
+}
+foreignObject.base{
+  border:1px solid darkred;
+  pointer-events: none;
+}
+
+foreignObject.detail{
   border:1px solid gray;
+  display: none;
+  pointer-events: none;
 }
