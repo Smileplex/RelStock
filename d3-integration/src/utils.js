@@ -5,7 +5,7 @@ export function createNodes(rawData){
 
     const radiusScale = d3.scalePow().exponent(0.1).range([40, 100]).domain([0, maxAmount]);
 
-    const myNodes = rawData.map(d => ({
+    const myNodes = rawData.filter(d=>d.id).map(d => ({
         id: d.id,
         radius: radiusScale(+d.total_amount),
         prevRadius: radiusScale(+d.total_amount),
@@ -20,6 +20,7 @@ export function createNodes(rawData){
         code: d.code,
         price: d.price,
         fluct: d.fluct,
+        fluctRate: d.fluctRate,
         arrow: d.fluct>0 ? "up" : "down"
     }))
 

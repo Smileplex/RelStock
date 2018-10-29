@@ -1,4 +1,4 @@
-export const width=1280;
-export const height=1024;
+export const width=window.outerWidth;
+export const height=window.outerHeight;
 
 

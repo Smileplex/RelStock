@@ -21,19 +21,8 @@ class App extends Component {
             if (err) {
                 return;
             }
-
             this.setState({
                 data: createNodes(data)
-            })
-        })
-
-        d3.csv('data/gates_money2.csv', (err, data) => {
-            if (err) {
-                return;
-            }
-
-            this.setState({
-                data2: createNodes(data)
             })
         })
     }

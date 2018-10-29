@@ -24,7 +24,6 @@ class StockNodes extends React.Component{
     }
 
     componentWillReceiveProps(nextProps){
-
         if(nextProps.data !== this.props.data){
             this.renderStockNodes(nextProps.data)
         }
@@ -45,23 +44,30 @@ class StockNodes extends React.Component{
         const base = this.state.g.selectAll('.base').data(data, d => d.id);
         base.exit().remove();
 
-        let baseEnter = base.enter().filter(d=>d.type==='a').append('foreignObject')
+        let baseEnter = base.enter().append('foreignObject')
             .attr('class', 'base')
             .attr('x',d=>d.x)
             .attr('y',d=>d.y)
             .attr('width', d=>d.radius*2)
             .attr('height', d=>d.radius*2);
 
-        let baseDiv = baseEnter.append("xhtml:div");
-        baseDiv.html((d)=>
+        let stockBaseDiv = baseEnter.filter(d=>d.type==='a').append("xhtml:div");
+        stockBaseDiv.html((d)=>
             "<div class='stock-name'>"+d.name+"</div>"+
             "<div class='stock-code'>"+d.code+"&nbsp;|&nbsp; KOSPI</div>"+
             "<hr/>"+
             "<div class='stock-values "+d.arrow+"'>"+
-            "<div class='stock-price'><i class='fas fa-caret-"+d.arrow+"' style='font-size:20px;'></i>&nbsp; "+Number(d.price).toLocaleString()+"</div>"+
-            "<div class='stock-fluct'>"+Math.abs(d.fluct).toLocaleString()+"(-1.41%)</div>"+
+            "<div class='stock-price'><i class='fas fa-caret-"+d.arrow+"'></i>&nbsp; "+Number(d.price).toLocaleString()+"</div>"+
+            "<div class='stock-fluct'>"+Math.abs(d.fluct).toLocaleString()+"("+d.fluctRate+")</div>"+
             "</div>"
         );
+
+        let keywordBaseDiv = baseEnter.filter(d=>d.type==='b').append("xhtml:div");
+        keywordBaseDiv.html((d)=>
+            "<div class='keyword-name'>"+d.name+"</div>"
+        );
+
+
 
         const detail = this.state.g.selectAll('.detail').data(data, d => d.id);
         detail.exit().remove();
@@ -73,11 +79,40 @@ class StockNodes extends React.Component{
             .attr('height', 400);
 
         let detailDiv = detailEnter.append('xhtml:div');
-        detailDiv.append('p')
-            .attr('class', 'lead')
-            .html('Holmes was certainly not a difficult man to live with.');
-        detailDiv.append('p')
-            .html('He was quiet in his ways, and his habits were regular. It was rare for him to be up after ten at night, and he had invariably breakfasted and gone out before I rose in the morning.');
+        detailDiv.html((d)=>
+            "<div class='detail-name-code'><div class='detail-name'>"+d.name+"</div>"+
+            "<div class='detail-code'>"+d.code+" | KOSPI</div></div>"+
+            "<div class='detail-values "+d.arrow+"'>"+
+            "<div class='detail-price'><i class='fas fa-caret-"+d.arrow+"'></i>&nbsp; "+Number(d.price).toLocaleString()+"</div>"+
+            "<div class='detail-fluct'>"+Math.abs(d.fluct).toLocaleString()+"("+d.fluctRate+")</div></div>"+
+            "<div class='detail-detail-values'>" +
+            "<div class='inner-values'>" +
+                "<div class='title'>전일종가</div><div class='value'>765,000</div>" +
+                "<div class='title'>고가</div><div class='value'>765,000</div>" +
+                "<div class='title'>저가</div><div class='value'>755,000</div>" +
+                "<div class='title'>거래량</div><div class='value'>50,436</div>" +
+            "</div>" +
+            "<div class='inner-values'>" +
+                "<div class='title'>거래대금</div><div class='value'>38,534백만</div>" +
+                "<div class='title'>시가총액</div><div class='value'>25조 3,818억</div>" +
+                "<div class='title'>액면가</div><div class='value'>500원 / 1주</div>" +
+                "<div class='title'>외국인소진율</div><div class='value'>59.67%</div>" +
+            "</div>" +
+            "<hr class='border'/>"+
+            "<div class='article'>" +
+            "<div class='inner'><div class='title'>네이버 스마트렌즈 외화/와인 인식 추가</div><div class='date'>2018.10.27 | 파이낸셜 뉴스</div></div>" +
+            "<div class='inner'><div class='title'>KEB하나은행, 네이버 스마트렌즈 기반 외국 화폐 조회 서비스 추가</div><div class='date'>2018.10.26 | 네이버 뉴스</div></div>" +
+            "<div class='inner'><div class='title'>네이버 쇼핑 1위 LED 스탠드, 눈을 위한 조명 라문 아플레또 주목</div><div class='date'>2018.10.25 | 서울경제</div></div>" +
+            "<div class='inner'><div class='title'>바닥 다진 네이버, 외국인들 러브콜 </div><div class='date'>2018.10.24 | 매일경제</div></div>" +
+            "<div class='inner'><div class='title'>e편한세상 용인 한숨시티, 네이버 그라폴리오와 공모전개최</div><div class='date'>2018.10.24 | 헤럴드경제</div></div>" +
+            "<div class='inner'><div class='title'>대학생 취업 선호 1위는 네이버</div><div class='date'>2018.10.23 | 파이낸셜 뉴스</div></div>" +
+            "<div class='inner'><div class='title'>네이버, 매크로 방지책 추가, 로그인 보안 강화</div><div class='date'>2018.10.23 | 네이버 뉴스</div></div>" +
+            "<div class='inner'><div class='title'>네이버, R&D의 힘</div><div class='date'>2018.10.22 | 매일경제</div></div>" +
+            "<div class='inner'><div class='title'>네이버 클라우드 플랫폼, 건국대에 제공</div><div class='date'>2018.10.21 | 서울경제</div></div>" +
+            "</div>"+
+            "<div class='circle-bottom'></div>"+
+            "<div class='chat-enter'><i class='far fa-comment fa-flip-horizontal'></i></i><span>종목 채팅 바로가기</span></div>"
+        );
 
         this.simulation.nodes(data).alpha(1).restart();
     }
