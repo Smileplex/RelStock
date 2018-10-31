@@ -199,42 +199,153 @@ div.header{
     position:absolute;
 }
 
-div.header div.search{
-    float:left;
-    width:48px;
-    height:48px;
-    padding-left:10px;
-}
-
-div.header div.search i{
-    font-size: 25px;
-    padding-top:10px;
-    color: rgba(255,15,119,1);
-}
-
-div.header div.logo{
-    text-align: center;
+div.logo{
+    position: absolute;
     display: inline;
-
+    left:45%;
 }
 
-div.header div.logo img{
-    height:50px;
-}
-
-div.header div.menu{
-    float:right;
-    width:48px;
-    height:48px;
-    padding-right:10px;
-}
-
-div.header div.menu i{
-    font-size: 30px;
-    padding-top:10px;
-    color: rgba(255,15,119,1);
+div.logo img{
+    height:45px;
 }
 
 hr.border{
     margin-top:20px;
+}
+
+
+/* Individual item */
+ .bm-item {
+    display: inline-block;
+
+    /* Our sidebar item styling */
+    text-decoration: none;
+    margin-bottom: 10px;
+    color: #d1d1d1;
+    transition: color 0.2s;
+}
+
+/* Change color on hover */
+ .bm-item:hover {
+    color: white;
+}
+
+/* The rest copied directly from react-burger-menu docs */
+
+/* Position and sizing of burger button */
+
+
+ .bm-burger-bars {
+    background: #373a47;
+}
+
+/* Position and sizing of clickable cross button */
+ .bm-cross-button {
+    height: 40px !important;
+    width: 40px !important;
+    right:0px !important;
+    top:0px !important;
+     margin-right:8px;
+     margin-top:8px;
+}
+
+.bm-cross {
+    background: #fff;
+    width:2px !important;
+    height:28px !important;
+}
+
+/* General sidebar styles */
+ .bm-menu {
+    background: #fff;
+    /*padding: 2.5em 1.5em 0;*/
+    font-size: 1.15em;
+}
+
+/* Morph shape necessary with bubble or elastic */
+ .bm-morph-shape {
+    fill: #373a47;
+}
+
+/* Wrapper for item list */
+ .bm-item-list {
+    color: #b8b7ad;
+}
+
+/* Styling of overlay */
+ .bm-overlay {
+    background: rgba(0, 0, 0, 0.3);
+}
+.bm-burger-button.search {
+    /*position: fixed;*/
+    position: absolute;
+    width: 36px;
+    height: 36px;
+    padding-top:10px;
+    padding-left:10px;
+    left:0;
+}
+.bm-burger-button.search:before{
+    font-size: 25px;
+    color: rgba(255,15,119,1);
+}
+ .bm-burger-button.chat{
+    position: absolute;
+    width:36px;
+    height:36px;
+    padding-top:10px;
+    padding-right:10px;
+    right:0;
+}
+
+ .bm-burger-button.chat:before{
+    font-size: 30px;
+    color: rgba(255,15,119,1);
+}
+
+ .menu-header{
+     border:1px solid red;
+     line-height:55px;
+     font-size:15px;
+     font-weight: bold;
+     background-color: rgba(255,15,119,1);
+     color:#fff;
+     text-align: left;
+     padding-left:30px;
+ }
+
+ .menu-header dim{
+     font-weight: 400;
+     color: #d5cfdb;
+ }
+
+
+ div.chat{
+
+ }
+
+.search-bar {
+    position: relative;
+}
+
+.search-bar .icon {
+    position: absolute;
+    padding: 10px 15px 13px 11px;
+    color: rgba(255,15,119,0.5);
+}
+
+.search-bar .input-text {
+    width: 80%;
+    border: 1px solid rgba(255,15,119,0.5);
+    background: #fff;
+    line-height: 18px;
+    padding: 8px 6px 8px 35px;
+}
+
+.search-bar .input-text::placeholder{
+    color:#b8b7ad;
+}
+
+.page-wrap{
+
 }

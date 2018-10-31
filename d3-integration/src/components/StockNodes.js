@@ -10,7 +10,7 @@ class StockNodes extends React.Component{
             .force('y', d3.forceY().strength(forceStrength).y(center.y))
             .force('charge', d3.forceManyBody().strength(this.charge))
             .force("collide", d3.forceCollide(function(d){
-                return d.radius * 1.4;
+                return d.radius * 1.3;
             }).strength(0.8))
             .on("tick", this.ticked).stop();
 
@@ -121,7 +121,7 @@ class StockNodes extends React.Component{
         this.setState({g: d3.select(ref)}, ()=>{
             d3.select('svg').append("linearGradient")
                 .attr("id", "linearGrad")
-                .attr("gradientUnits", "userSpaceOnUse")
+                .attr("gradientUnits", "objectBoundingBox")
                 .attr("x1", "0%").attr("y1", "100%")
                 .attr("x2", "100%").attr("y2", "0%")
                 .selectAll("stop")

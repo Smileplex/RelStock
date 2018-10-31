@@ -6,7 +6,9 @@ import StockMap from './components/StockMap'
 import StockNodes from './components/StockNodes'
 import {createNodes} from './utils';
 import {width, height} from './constants';
-import Header from "./components/Header";
+import Logo from "./components/header/Logo";
+import SearchSite from "./components/header/SearchSite";
+import ChatSite from "./components/header/ChatSite";
 
 class App extends Component {
 
@@ -34,10 +36,14 @@ class App extends Component {
         const forceStrength =  0.03;
         return (
             <div className="App">
-                <Header active={true}/>
-                <StockMap width={width} height={height}>
-                    <StockNodes data={this.state.data} data2={this.state.data2} forceStrength={forceStrength} center={center}/>
-                </StockMap>
+                <SearchSite />
+                <ChatSite/>
+                <Logo/>
+                <div id="page-wrap">
+                    <StockMap width={width} height={height}>
+                        <StockNodes data={this.state.data} data2={this.state.data2} forceStrength={forceStrength} center={center}/>
+                    </StockMap>
+                </div>
             </div>
         );
     }
