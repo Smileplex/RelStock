@@ -29,7 +29,7 @@ class ChatSite extends React.Component{
 
     render(){
         return(
-            <Menu onStateChange={this.isMenuOpen} width={"320px"} right burgerButtonClassName={"far fa-comments chat"} customBurgerIcon={ <i className="far fa-comments"></i> }>
+            <Menu onStateChange={this.isMenuOpen} width={"375px"} right burgerButtonClassName={"far fa-comments chat"} customBurgerIcon={ <i className="far fa-comments"></i> }>
                 {!this.state.chatActivated ? <ChatRoom goclick={this.changeActivation}/> : <Chat/> }
             </Menu>
         )
