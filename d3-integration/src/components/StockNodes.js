@@ -164,6 +164,11 @@ class StockNodes extends React.Component{
             newRadius = target.prevRadius;
         }
         const self = this;
+        const test = d3.selectAll('circle').filter(function(t){
+            return t.id === target.id;
+        });
+
+        console.log('test node = ', test);
         d3.selectAll('circle').filter(function(t){
             return t.id === target.id;
         }).transition().duration(300).tween('radius', function(d){

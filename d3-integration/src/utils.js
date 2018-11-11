@@ -28,8 +28,3 @@ export function createNodes(rawData){
 
     return myNodes;
 }
-
-export function createStockBase(rawData){
-
-}
-

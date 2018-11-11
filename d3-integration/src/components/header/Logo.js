@@ -1,5 +1,5 @@
 import React from 'react'
-import SearchSite from './SearchSite'
+import SearchSite from '../../containers/SearchSite'
 
 const Logo = () => {
     return (

@@ -1,7 +1,7 @@
 import React from 'react'
 import {slide as Menu} from 'react-burger-menu'
-import ChatRoom from "./ChatRoom";
-import Chat from "./Chat";
+import ChatRoom from "../components/header/ChatRoom";
+import Chat from "../components/header/Chat";
 import PropTypes from 'prop-types';
 
 

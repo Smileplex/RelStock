@@ -304,7 +304,6 @@ hr.border{
 }
 
  .menu-header{
-     border:1px solid red;
      line-height:55px;
      font-size:15px;
      font-weight: bold;
@@ -314,7 +313,90 @@ hr.border{
      padding-left:25px;
  }
 
- .menu-header.chat{
+.search-body .menu-header {
+    background-color: rgb(163, 26, 204);
+    padding-left:15px;
+}
+
+.search-body .search-box{
+    border:0;
+    line-height: 40px;
+    background: none;
+    color:#fff;
+    width:260px;
+    font-size: 14px;
+}
+
+.search-body .search-box:focus{
+    outline-width: 0;
+}
+
+.search-body .search-box::placeholder{
+    color:#fff;
+    opacity: 1;
+}
+
+.search-body .search-box:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #fff;
+}
+
+.search-body .search-box::-ms-input-placeholder { /* Microsoft Edge */
+    color: #fff;
+}
+
+.search-body .content{
+    text-align: left;
+    font-size:14px;
+    color:#000;
+    padding:14px;
+}
+
+.search-body .content .list{
+    margin-top:24px;
+}
+
+.search-body .sub-header{
+    font-weight: bold;
+}
+.search-body hr{
+    width:100%;
+}
+.search-body .content table{
+    width:100%;
+    padding:13px;
+}
+
+.content table td{
+    font-size: 13px;
+    line-height: 1.7;
+}
+.content table .value{
+    text-align: right;
+    font-size:13px;
+}
+
+.content table .value.now{
+    color:#939393;
+}
+
+.content table .value.up{
+    color:#ff1b05;
+    font-size:13px;
+}
+
+.content table .value.down{
+    color:#1e8df9;
+    font-size:13px;
+}
+
+.content table .value i{
+    font-size:17px;
+    margin-right:3px;
+}
+
+
+
+.menu-header.chat{
      padding-left:10px;
  }
 
@@ -440,22 +522,24 @@ hr.border{
 
 div.chatBox{ overflow-y:hidden; }
 div.chatBox .chatTextArea {width:100%; background-color:#fff; padding-bottom:20px;}
-div.chatBox .chatForm{background-color:#fff; /* padding-top:10px; padding-bottom:24px; */ padding:15px; border-top:2px solid #78d3f7;}
-div.chatBox .chatForm input[type="text"] { display: inline-block; margin: 0; width: 85%; font-family: 'Noto Sans KR', sans-serif; font-size: 18px; appearance: none; box-shadow: none; border-radius: none; padding: 9px 10px 10px 10px; /*border: solid 3px #dcdcdc;*/border:0;  transition: box-shadow 0.3s, border 0.3s;}
+div.chatBox .chatForm{background-color:#fff; /* padding-top:10px; padding-bottom:24px; */ padding: 27px 15px 15px 15px; border-top:3px solid rgb(249,210,225);}
+div.chatBox .chatForm input[type="text"] { display: inline-block; margin: 0; width: 70%; font-family: 'Noto Sans KR', sans-serif; font-size: 18px; appearance: none; box-shadow: none; border-radius: none; padding: 9px 10px 10px 10px; /*border: solid 3px #dcdcdc;*/border:0;  transition: box-shadow 0.3s, border 0.3s;}
 div.chatBox .chatForm input[type="text"]:focus { outline:0; border:0;}
-div.chatBox .chatForm input[type="button"] {font-family: 'Noto Sans KR', sans-serif; color:#fff; appearance: none; box-shadow: none; border:none; background: none; width:47px; height:45px; background-color:#6dcff6;}
-div.chatBox .chatTextArea{}
-div.chatBox .chatTextArea ul.chatTextList{list-style-type:none; overflow: hidden; outline: none; padding:0;}
+div.chatBox .chatForm textarea { display: inline-block; margin: 0; width: 75%; vertical-align:middle; height:100px; font-family: 'Noto Sans KR', sans-serif; font-size: 16px; appearance: none; box-shadow: none; border-radius: none; padding: 0px; /*border: solid 3px #dcdcdc;*/ border:0; transition: box-shadow 0.3s, border 0.3s;}
+div.chatBox .chatForm textarea:focus{ outline:0; border:0;}
+div.chatBox .chatForm input[type="button"] {font-size:14px; font-family: 'Noto Sans KR', sans-serif; color:#fff; appearance: none; box-shadow: none; border:none; background: none; border-radius:12px; width:83px; height:75px; background-color: #ff3568;}
+div.chatBox .chatTextArea{overflow-y: hidden;}
+div.chatBox .chatTextArea ul.chatTextList{list-style-type:none; outline: none; padding:0;}
 div.chatBox .chatTextArea ul.chatTextList li{font-size:1.5em; margin:10px; transition: all .5s; padding-top:10px;}
 div.chatBox .chatTextArea ul.chatTextList li:after { content: ''; clear: both; display: block;}
 div.chatBox .chatTextArea ul.chatTextList .head{font-size:13px;}
 
 div.chatBox .chatTextArea ul.chatTextList .head .name{font-weight:600; position: relative; color:#000;}
 div.chatBox .chatTextArea ul.chatTextList .head .name:after{content: ''; position: absolute; height: 8px; width: 8px; border-radius: 50%; top: 6px;}
-div.chatBox .chatTextArea ul.chatTextList .msg{background-color: rgb(253,230,239); width:285px; display: inline-block; border-radius:5px; margin-top: 4px;  color: #000; font-size: 13px; border-radius: 3px; padding: 10px; line-height: 1.5; max-width: 500px; word-wrap: break-word; position: relative; text-align: left;}
+div.chatBox .chatTextArea ul.chatTextList .msg{background-color: rgb(253,230,239); display: inline-block; border-radius:5px; margin-top: 4px;  color: #000; font-size: 13px; border-radius: 3px; padding: 10px; line-height: 1.5; max-width: 275px; word-wrap: break-word; position: relative; text-align: left; vertical-align: top;}
 /*div.chatBox .chatTextArea ul.chatTextList .msg:before{content: ''; position: absolute; width: 0px; height: 0px; top: -12px; border-bottom: 12px solid #62bf6e; border-left: 10px solid transparent; border-right: 10px solid transparent}*/
 /*div.chatBox .chatTextArea ul.chatTextList .msg:before{content: ''; position: absolute; width: 0px; height: 0px; top: 5px; border-top: 14px solid #62bf6e; border-left: 10px solid transparent; border-right: 10px solid transparent}*/
-div.chatBox .chatTextArea ul.chatTextList .time{color: #b7bccf; padding:0 5px; font-size:11px; position: relative; top:12px;}
+div.chatBox .chatTextArea ul.chatTextList .time{color: #b7bccf; padding:0 5px; font-size:11px; position: relative; vertical-align: bottom;}
 /*
 div.chatBox .chatTextArea ul.chatTextList li.self{}
 div.chatBox .chatTextArea ul.chatTextList li.self img{float:right;}
@@ -468,6 +552,7 @@ div.chatBox .chatTextArea ul.chatTextList li.self .msg:before{right: 16px; borde
 div.chatBox .chatTextArea ul.chatTextList li.self{}
 div.chatBox .chatTextArea ul.chatTextList li.self img{float:right; }
 div.chatBox .chatTextArea ul.chatTextList li.self .head{text-align:right;}
+div.chatBox .chatTextArea ul.chatTextList li.self .body{display: inline-block; float:right;}
 div.chatBox .chatTextArea ul.chatTextList li.self .head .name{margin-right:5px;}
 
 /*
@@ -480,6 +565,7 @@ div.chatBox .chatTextArea ul.chatTextList li.other .head .name:after{ background
 div.chatBox .chatTextArea ul.chatTextList li.other{}
 div.chatBox .chatTextArea ul.chatTextList li.other img{float:left;}
 div.chatBox .chatTextArea ul.chatTextList li.other .msg{}
+div.chatBox .chatTextArea ul.chatTextList li.other .body{display: inline-block; float:left;}
 div.chatBox .chatTextArea ul.chatTextList li.other .head {text-align: left;}
 div.chatBox .chatTextArea ul.chatTextList li.other .head .name{margin-left:5px; }
 
