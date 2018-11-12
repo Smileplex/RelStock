@@ -10,8 +10,11 @@
     "react-burger-menu": "^2.5.4",
     "react-collapsible": "^2.3.1",
     "react-dom": "^16.5.2",
+    "react-redux": "^5.1.1",
     "react-scripts": "2.0.4",
-    "redux-actions": "^2.6.4"
+    "redux": "^4.0.1",
+    "redux-actions": "^2.6.4",
+    "redux-saga": "^0.16.2"
   },
   "scripts": {
     "start": "react-scripts start",

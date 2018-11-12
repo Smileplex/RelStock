@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import './App.css';
 import './Style.css'
-import StockMap from './containers/StockMap'
+import StockMap from './containers/stock/StockMap'
 import Logo from "./components/header/Logo";
-import SearchSite from "./containers/SearchSite";
-import ChatSite from "./containers/ChatSite";
+import SearchSite from "./containers/search/SearchSite";
+import ChatSite from "./containers/chat/ChatSite";
 
 class App extends Component {
 
