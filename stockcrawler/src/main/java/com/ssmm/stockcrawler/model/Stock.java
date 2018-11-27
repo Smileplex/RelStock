@@ -13,11 +13,22 @@ public class Stock {
 	private Long id;
 	private String name;
 	private String code;
+
 	private int pricePrev;
 	private int price;
 	private int priceMax;
 	private int priceMin;
 	private int fluct;
+
+	private int marketSum;
+	private int faceVal;
+	private double frgnAcqRatio;
+
+	private int volumeTrade;
+	private Long volumeTradeAmount;
+
+	private String articles;
+
 	private Double fluctRate;
 	private int riseFall;
 	private String dailyChart;
@@ -154,13 +165,77 @@ public class Stock {
 		this.updatedDate = updatedDate;
 	}
 
-	@Override
-	public String toString() {
-		return "Stock [id=" + id + ", name=" + name + ", code=" + code + ", pricePrev=" + pricePrev + ", price=" + price
-				+ ", priceMax=" + priceMax + ", priceMin=" + priceMin + ", fluct=" + fluct + ", fluctRate=" + fluctRate
-				+ ", riseFall=" + riseFall + ", dailyChart=" + dailyChart + ", weeklyChart=" + weeklyChart
-				+ ", monthlyChart=" + monthlyChart + ", createdDate=" + createdDate + ", updatedDate=" + updatedDate
-				+ "]";
+	public int getMarketSum() {
+		return marketSum;
 	}
 
+	public void setMarketSum(int marketSum) {
+		this.marketSum = marketSum;
+	}
+
+	public int getFaceVal() {
+		return faceVal;
+	}
+
+	public void setFaceVal(int faceVal) {
+		this.faceVal = faceVal;
+	}
+
+	public double getFrgnAcqRatio() {
+		return frgnAcqRatio;
+	}
+
+	public void setFrgnAcqRatio(double frgnAcqRatio) {
+		this.frgnAcqRatio = frgnAcqRatio;
+	}
+
+	public int getVolumeTrade() {
+		return volumeTrade;
+	}
+
+	public void setVolumeTrade(int volumeTrade) {
+		this.volumeTrade = volumeTrade;
+	}
+
+	public Long getVolumeTradeAmount() {
+		return volumeTradeAmount;
+	}
+
+	public void setVolumeTradeAmount(Long volumeTradeAmount) {
+		this.volumeTradeAmount = volumeTradeAmount;
+	}
+
+	public String getArticles() {
+		return articles;
+	}
+
+	public void setArticles(String articles) {
+		this.articles = articles;
+	}
+
+	@Override
+	public String toString() {
+		return "Stock{" +
+				"id=" + id +
+				", name='" + name + '\'' +
+				", code='" + code + '\'' +
+				", pricePrev=" + pricePrev +
+				", price=" + price +
+				", priceMax=" + priceMax +
+				", priceMin=" + priceMin +
+				", fluct=" + fluct +
+				", marketSum=" + marketSum +
+				", faceVal=" + faceVal +
+				", frgnAcqRatio=" + frgnAcqRatio +
+				", volumeTrade=" + volumeTrade +
+				", volumeTradeAmount=" + volumeTradeAmount +
+				", fluctRate=" + fluctRate +
+				", riseFall=" + riseFall +
+				", dailyChart='" + dailyChart + '\'' +
+				", weeklyChart='" + weeklyChart + '\'' +
+				", monthlyChart='" + monthlyChart + '\'' +
+				", createdDate=" + createdDate +
+				", updatedDate=" + updatedDate +
+				'}';
+	}
 }

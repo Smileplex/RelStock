@@ -23,6 +23,8 @@ public class StockPriceValuesImpl implements StockPriceValues {
 		stockResult.setNowVal(getStockNowVal(rawResult.toString()));
 		stockResult.setFluct(getStockFluct(rawResult.toString()));
 		stockResult.setFluctRate(getStockFluctRate(rawResult.toString()));
+		stockResult.setVolumeTrade(getVolumeTrade(rawResult.toString()));
+		stockResult.setVolumeTradeAmount(getVolumeTradeAmount(rawResult.toString()));
 	}
 
 	private Document readValueJson(StockResult stockResult) {
@@ -67,5 +69,30 @@ public class StockPriceValuesImpl implements StockPriceValues {
 		}
 		return fluctRate;
 	}
+
+	private int getVolumeTrade(String rawResult) {
+		int volumeTrade = 0;
+		try {
+			String cutStringInRange = Helper.cutStringInRange(rawResult, "\"aq\":", ",");
+			if (!Strings.isNullOrEmpty(cutStringInRange))
+				volumeTrade = Integer.parseInt(cutStringInRange);
+		} catch (Exception e) {
+			System.out.println("Can not parse volumeTrade : " + volumeTrade);
+		}
+		return volumeTrade;
+	}
+
+	private Long getVolumeTradeAmount(String rawResult) {
+		long volumeTradeAmount = 0;
+		try {
+			String cutStringInRange = Helper.cutStringInRange(rawResult, "\"aa\":", ",");
+			if (!Strings.isNullOrEmpty(cutStringInRange))
+				volumeTradeAmount = Long.valueOf(cutStringInRange);
+		} catch (Exception e) {
+			System.out.println("Can not parse volumeTradeAmount : " + volumeTradeAmount);
+		}
+		return volumeTradeAmount;
+	}
+
 
 }

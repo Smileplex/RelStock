@@ -37,7 +37,6 @@ public class StockKeywordGeneratorImpl implements KeywordGenerator {
 		entity.setUpdatedDate(new Date());
 		entity.setType(keywordInfo.getKeywordType());
 		entity.setStatus(1);
-		entity.setArticles(keywordInfo.getKeywordArticles());
 
 		StockKeyword relatedKeyword = stockKeywordService.find(keywordLink.getParentId());
 		if (Objects.nonNull(relatedKeyword))
@@ -48,7 +47,6 @@ public class StockKeywordGeneratorImpl implements KeywordGenerator {
 
 	private Long updateStockKeyword(StockKeyword searchedKeyword, KeywordInfo keywordInfo) {
 		searchedKeyword.setUpdatedDate(new Date());
-		searchedKeyword.setArticles(keywordInfo.getKeywordArticles());
 		return stockKeywordService.save(searchedKeyword).getId();
 	}
 }

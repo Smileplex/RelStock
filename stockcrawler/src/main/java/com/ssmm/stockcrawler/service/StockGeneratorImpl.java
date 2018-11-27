@@ -1,6 +1,7 @@
 package com.ssmm.stockcrawler.service;
 
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.inject.Inject;
@@ -65,7 +66,7 @@ public class StockGeneratorImpl implements DetailGenerator {
 
     private Long updateStock(Stock searchedStock, StockResult stockResult) {
         System.out.println(String.format("(Stock : %s) updated", searchedStock.getName()));
-        return convertFromResult(searchedStock, stockResult).getId();
+        return stockService.save(convertFromResult(searchedStock, stockResult)).getId();
     }
 
     private Stock convertFromResult(Stock entity, StockResult stockResult) {
@@ -78,6 +79,12 @@ public class StockGeneratorImpl implements DetailGenerator {
         entity.setRiseFall(stockResult.getRisefall());
         entity.setFluct(stockResult.getFluct());
         entity.setFluctRate(stockResult.getFluctRate());
+        entity.setMarketSum(stockResult.getMarketSum());
+        entity.setFaceVal(stockResult.getFaceVal());
+        entity.setFrgnAcqRatio(stockResult.getFrgnAcqRatio());
+        entity.setVolumeTrade(stockResult.getVolumeTrade());
+        entity.setVolumeTradeAmount(stockResult.getVolumeTradeAmount());
+
         if (Objects.isNull(entity.getCreatedDate())) {
             entity.setCreatedDate(new Date());
         }
@@ -85,6 +92,11 @@ public class StockGeneratorImpl implements DetailGenerator {
         entity.setDailyChart(stockResult.getDailyChartUrl());
         entity.setWeeklyChart(stockResult.getWeeklyChartUrl());
         entity.setMonthlyChart(stockResult.getMonthlyChartUrl());
+        try {
+            entity.setArticles(objectMapper.writeValueAsString(stockResult.getArticles()));
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
         return entity;
     }
 }

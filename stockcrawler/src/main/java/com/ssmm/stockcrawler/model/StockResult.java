@@ -2,6 +2,8 @@ package com.ssmm.stockcrawler.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.util.List;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class StockResult {
     private String name;
@@ -10,6 +12,7 @@ public class StockResult {
     private int marketSum;
     private int risefall;
     private int volumeTrade;
+    private Long volumeTradeAmount;
     private int prevClose;
     private int nowVal;
     private int openVal;
@@ -22,6 +25,9 @@ public class StockResult {
     private int faceVal;
     private int high52week;
     private int low52week;
+
+    private List<Article> articles;
+
     private String dailyChartUrl;
     private String weeklyChartUrl;
     private String monthlyChartUrl;
@@ -76,6 +82,14 @@ public class StockResult {
 
     public void setVolumeTrade(int volumeTrade) {
         this.volumeTrade = volumeTrade;
+    }
+
+    public Long getVolumeTradeAmount() {
+        return volumeTradeAmount;
+    }
+
+    public void setVolumeTradeAmount(Long volumeTradeAmount) {
+        this.volumeTradeAmount = volumeTradeAmount;
     }
 
     public int getPrevClose() {
@@ -184,5 +198,40 @@ public class StockResult {
 
     public String getMonthlyChartUrl() {
         return String.format(StockCharts.CHART_MONTHLY_URL,getCode());
+    }
+
+    public List<Article> getArticles() {
+        return articles;
+    }
+
+    public void setArticles(List<Article> articles) {
+        this.articles = articles;
+    }
+
+    @Override
+    public String toString() {
+        return "StockResult{" +
+                "name='" + name + '\'' +
+                ", code='" + code + '\'' +
+                ", end=" + end +
+                ", marketSum=" + marketSum +
+                ", risefall=" + risefall +
+                ", volumeTrade=" + volumeTrade +
+                ", prevClose=" + prevClose +
+                ", nowVal=" + nowVal +
+                ", openVal=" + openVal +
+                ", highVal=" + highVal +
+                ", lowVal=" + lowVal +
+                ", fluct=" + fluct +
+                ", fluctRate=" + fluctRate +
+                ", tradeStopYn='" + tradeStopYn + '\'' +
+                ", frgnAcqRatio=" + frgnAcqRatio +
+                ", faceVal=" + faceVal +
+                ", high52week=" + high52week +
+                ", low52week=" + low52week +
+                ", dailyChartUrl='" + dailyChartUrl + '\'' +
+                ", weeklyChartUrl='" + weeklyChartUrl + '\'' +
+                ", monthlyChartUrl='" + monthlyChartUrl + '\'' +
+                '}';
     }
 }

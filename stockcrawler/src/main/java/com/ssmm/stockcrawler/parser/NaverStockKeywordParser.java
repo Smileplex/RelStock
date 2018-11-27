@@ -30,7 +30,7 @@ public class NaverStockKeywordParser implements PageParser {
             return new EmptyKeywordInfo();
         }
 
-        return new KeywordInfo(getKeywordName(), getKeywordArticles(), keywordType, getRelatedKeywordLinks());
+        return new KeywordInfo(getKeywordName(), keywordType, getRelatedKeywordLinks());
     }
 
     private int getKeywordType(Document pageHtml) {
@@ -44,16 +44,6 @@ public class NaverStockKeywordParser implements PageParser {
                             "UTF-8")
                     .trim();
         } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        return "";
-    }
-
-    private String getKeywordArticles() {
-        try {
-            return objectMapper.writeValueAsString(pageHtml.select("a.news_wrap")
-                    .stream().map(a -> new Article(a.select("div.news_tit").text(), a.attr("href"))).collect(Collectors.toList()));
-        } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
         return "";
