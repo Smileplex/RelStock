@@ -7,23 +7,33 @@ import org.neo4j.ogm.annotation.NodeEntity;
 import java.util.Date;
 
 @NodeEntity
-public class
-Stock {
+public class Stock {
 	@Id
 	@GeneratedValue
 	private Long id;
 	private String name;
 	private String code;
+
 	private int pricePrev;
 	private int price;
 	private int priceMax;
 	private int priceMin;
 	private int fluct;
+
+	private int marketSum;
+	private int faceVal;
+	private double frgnAcqRatio;
+
+	private int volumeTrade;
+	private Long volumeTradeAmount;
+
+	private String articles;
+
 	private Double fluctRate;
 	private int riseFall;
-	private String chartDaily;
-	private String chartWeekly;
-	private String chartMonthly;
+	private String dailyChart;
+	private String weeklyChart;
+	private String monthlyChart;
 	private Date createdDate;
 	private Date updatedDate;
 
@@ -115,28 +125,28 @@ Stock {
 		this.riseFall = riseFall;
 	}
 
-	public String getChartDaily() {
-		return chartDaily;
+	public String getDailyChart() {
+		return dailyChart;
 	}
 
-	public void setChartDaily(String chartDaily) {
-		this.chartDaily = chartDaily;
+	public void setDailyChart(String dailyChart) {
+		this.dailyChart = dailyChart;
 	}
 
-	public String getChartWeekly() {
-		return chartWeekly;
+	public String getWeeklyChart() {
+		return weeklyChart;
 	}
 
-	public void setChartWeekly(String chartWeekly) {
-		this.chartWeekly = chartWeekly;
+	public void setWeeklyChart(String weeklyChart) {
+		this.weeklyChart = weeklyChart;
 	}
 
-	public String getChartMonthly() {
-		return chartMonthly;
+	public String getMonthlyChart() {
+		return monthlyChart;
 	}
 
-	public void setChartMonthly(String chartMonthly) {
-		this.chartMonthly = chartMonthly;
+	public void setMonthlyChart(String monthlyChart) {
+		this.monthlyChart = monthlyChart;
 	}
 
 	public Date getCreatedDate() {
@@ -155,13 +165,77 @@ Stock {
 		this.updatedDate = updatedDate;
 	}
 
-	@Override
-	public String toString() {
-		return "Stock [id=" + id + ", name=" + name + ", code=" + code + ", pricePrev=" + pricePrev + ", price=" + price
-				+ ", priceMax=" + priceMax + ", priceMin=" + priceMin + ", fluct=" + fluct + ", fluctRate=" + fluctRate
-				+ ", riseFall=" + riseFall + ", chartDaily=" + chartDaily + ", chartWeekly=" + chartWeekly
-				+ ", chartMonthly=" + chartMonthly + ", createdDate=" + createdDate + ", updatedDate=" + updatedDate
-				+ "]";
+	public int getMarketSum() {
+		return marketSum;
 	}
 
+	public void setMarketSum(int marketSum) {
+		this.marketSum = marketSum;
+	}
+
+	public int getFaceVal() {
+		return faceVal;
+	}
+
+	public void setFaceVal(int faceVal) {
+		this.faceVal = faceVal;
+	}
+
+	public double getFrgnAcqRatio() {
+		return frgnAcqRatio;
+	}
+
+	public void setFrgnAcqRatio(double frgnAcqRatio) {
+		this.frgnAcqRatio = frgnAcqRatio;
+	}
+
+	public int getVolumeTrade() {
+		return volumeTrade;
+	}
+
+	public void setVolumeTrade(int volumeTrade) {
+		this.volumeTrade = volumeTrade;
+	}
+
+	public Long getVolumeTradeAmount() {
+		return volumeTradeAmount;
+	}
+
+	public void setVolumeTradeAmount(Long volumeTradeAmount) {
+		this.volumeTradeAmount = volumeTradeAmount;
+	}
+
+	public String getArticles() {
+		return articles;
+	}
+
+	public void setArticles(String articles) {
+		this.articles = articles;
+	}
+
+	@Override
+	public String toString() {
+		return "Stock{" +
+				"id=" + id +
+				", name='" + name + '\'' +
+				", code='" + code + '\'' +
+				", pricePrev=" + pricePrev +
+				", price=" + price +
+				", priceMax=" + priceMax +
+				", priceMin=" + priceMin +
+				", fluct=" + fluct +
+				", marketSum=" + marketSum +
+				", faceVal=" + faceVal +
+				", frgnAcqRatio=" + frgnAcqRatio +
+				", volumeTrade=" + volumeTrade +
+				", volumeTradeAmount=" + volumeTradeAmount +
+				", fluctRate=" + fluctRate +
+				", riseFall=" + riseFall +
+				", dailyChart='" + dailyChart + '\'' +
+				", weeklyChart='" + weeklyChart + '\'' +
+				", monthlyChart='" + monthlyChart + '\'' +
+				", createdDate=" + createdDate +
+				", updatedDate=" + updatedDate +
+				'}';
+	}
 }

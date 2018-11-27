@@ -25,11 +25,11 @@ public class StockKeywordServiceImpl extends GenericService<StockKeyword> implem
         params.put("name", name);
 
 
-        return session.query(getEntityType(), "MATCH (sk1:StockKeyword{name:\"삼성전자\"})<-[r1:RELATED_TO]-(sk2:StockKeyword)<-[r2:RELATED_TO]-(sk3:StockKeyword)\n" +
-                "optional match(sk1)-[r12:HAS]-(s1:Stock) \n" +
-                "optional match(sk2)-[r13:HAS]-(s2:Stock)\n" +
-                "optional match(sk3)-[r14:HAS]-(s3:Stock)\n" +
-                "return sk1,r1,sk2,r2,sk3,r12,s1,r13,s2,r14,s3", params);
+        return session.query(getEntityType(), "MATCH (sk1:StockKeyword{name:{name}})<-[r1:RELATED_TO]-(sk2:StockKeyword)<-[r2:RELATED_TO]-(sk3:StockKeyword)\n" +
+                "match(sk1)-[r12:HAS]-(s1:Stock) \n" +
+                "match(sk2)-[r13:HAS]-(s2:Stock)\n" +
+                "match(sk3)-[r14:HAS]-(s3:Stock)\n" +
+                "return sk1,r1,sk2,r2,sk3,r12,s1,r13,s2,r14,s3 limit 20", params);
     }
 
     @Override
