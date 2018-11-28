@@ -19,3 +19,4 @@ BubbleChart.propTypes = {
 
 
 export default BubbleChart;
+2

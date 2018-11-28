@@ -61,9 +61,7 @@ class Bubbles extends React.Component{
 
     renderBubbles = (data) => {
         const bubbles = this.state.g.selectAll('.bubble').data(data, d => d.id);
-
         bubbles.exit().remove();
-
         const bubblesE = bubbles.enter().append('circle')
             .classed('bubble', true)
             .attr('r', 0)
