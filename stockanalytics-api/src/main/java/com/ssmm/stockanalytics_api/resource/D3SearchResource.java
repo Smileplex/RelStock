@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssmm.stockanalytics_api.model.Stock;
 import com.ssmm.stockanalytics_api.model.StockKeyword;
+import com.ssmm.stockanalytics_api.model.StockResult;
 
 import java.util.*;
 
@@ -42,6 +43,27 @@ public class D3SearchResource {
                 }
             }
         }
+    }
+    public D3SearchResource(StockResult stockResult) throws Exception {
+        nodes = new HashSet<>();
+        links = new HashSet<>();
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        Map properties;
+        String labelType;
+        for(Stock stock : stockResult.getStocks()){
+            properties = objectMapper.convertValue(stock, Map.class);
+            labelType = "Stock";
+            nodes.add(new Node(stock.getId(), stock.getName().toLowerCase(), labelType, properties));
+        }
+
+        for(StockKeyword stockKeyword : stockResult.getStockKeywords()){
+            properties = objectMapper.convertValue(stockKeyword, Map.class);
+            labelType = "StockKeyword";
+            nodes.add(new Node(stockKeyword.getId(), stockKeyword.getName().toLowerCase(), labelType, properties));
+        }
+
+
     }
 
     public Set<Node> getNodes() {

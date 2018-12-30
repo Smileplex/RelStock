@@ -4,6 +4,7 @@ package com.ssmm.stockanalytics_api.controller;
 import com.ssmm.stockanalytics_api.api.ApiConstants;
 import com.ssmm.stockanalytics_api.model.Stock;
 import com.ssmm.stockanalytics_api.model.StockKeyword;
+import com.ssmm.stockanalytics_api.model.StockResult;
 import com.ssmm.stockanalytics_api.resource.D3SearchResource;
 import com.ssmm.stockanalytics_api.service.StockKeywordService;
 import com.ssmm.stockanalytics_api.service.StockService;
@@ -39,8 +40,9 @@ public class StockKeywordSearchController {
     @RequestMapping(value = "/stockkeyword/{name}/2depth", method = RequestMethod.GET)
     public ResponseEntity<D3SearchResource> findAllStockKeywordsWithin2Depth(@PathVariable("name") String name) {
         List<StockKeyword> stockKeywords = (List<StockKeyword>) stockKeywordService.findAllWithin2DepthByName(name);
+        StockResult stockResult = stockKeywordService.findAllWithin2Depth(name);
         try {
-            return new ResponseEntity<>(new D3SearchResource(stockKeywords), HttpStatus.OK);
+            return new ResponseEntity<>(new D3SearchResource(stockResult), HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
         }

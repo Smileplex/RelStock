@@ -27,6 +27,7 @@ public class StockKeyword {
 	@Relationship(type = "RELATED_TO")
 	private Set<StockKeyword> stockKeywords;
 
+	@JsonIgnore
 	@Relationship(type = "HAS")
 	private Stock stock;
 

@@ -1,6 +1,7 @@
 package com.ssmm.stockanalytics_api.resource;
 
 import java.util.Map;
+import java.util.Objects;
 
 public class Node {
     private Long id;
@@ -54,5 +55,18 @@ public class Node {
 
     public void setProperties(Map<String, Object> properties) {
         this.properties = properties;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Node node = (Node) o;
+        return Objects.equals(name, node.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
     }
 }
