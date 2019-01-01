@@ -11055,7 +11055,7 @@ Trace:
   Exit code: 3221225786
   Command: C:\WINDOWS\system32\cmd.exe
   Arguments: /d /s /c cross-env NODE_ENV=development node server
-  Directory: C:\Users\DongwooSeo\eclipse-workspace-ssmm\stockanalytics-front
+  Directory: C:\Users\DongwooSeo\eclipse-workspace-ssmm\stockanalytics-front-fixed
   Output:
   
       at ProcessTermError.MessageError (C:\Users\DongwooSeo\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:186:110)

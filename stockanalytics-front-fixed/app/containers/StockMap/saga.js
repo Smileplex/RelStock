@@ -8,7 +8,7 @@ import { loadDefaultStocksSuccess, loadSearchedStocksSuccess } from './actions';
 import request from '../../utils/request';
 
 export function* loadDefaultStocks() {
-  const requestUrl = 'http://localhost:8000/search/stockkeyword/lg전자/2depth';
+  const requestUrl = 'http://localhost:8000/search/stockkeyword/엘지전자/2depth';
   const result = yield call(request, requestUrl);
   yield put(loadDefaultStocksSuccess(formatToD3(result)));
 }
@@ -22,6 +22,7 @@ export function* loadSearchedStocks(data) {
 }
 
 function formatToD3(result) {
+  console.log('result', result);
   const convertedData = result.nodes.map(d => d.properties);
   const maxAmount = d3.max(convertedData, d => +d.price);
   const mean = d3.mean(convertedData, d => +d.price);

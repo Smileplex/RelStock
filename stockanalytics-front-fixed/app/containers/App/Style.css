@@ -189,6 +189,65 @@ div.detail-detail-values div.inner-values div.value.marketsum{
   font-size: 13px;
 }
 
+div.keyword-detail div.detail-name-article{
+  margin: 8% 0 0 0;
+}
+
+div.keyword-detail div.detail-name-article div.detail-name{
+  font-size:24px;
+  font-weight:bold;
+}
+
+div.keyword-detail div.detail-name-article div.article{
+  margin-top:6%;
+}
+
+div.keyword-detail hr.border{
+  margin-top:10px;
+}
+
+div.keyword-detail div.clips{
+  width: 73%;
+  margin: 16px auto 0px auto;
+  height:125px;
+  overflow-y: hidden;
+}
+
+div.keyword-detail div.clips div.inner{
+  display: inline-block;
+  width:33.3%;
+  padding:0px 10px;
+  vertical-align: top;
+}
+
+div.keyword-detail div.clips div.inner div.title{
+  font-size:12px;
+  height:37px;
+  overflow: hidden;
+  letter-spacing: -1px;
+}
+
+div.keyword-detail div.clips div.inner div.title a{
+  text-decoration: none;
+  color:#000;
+  font-weight: bold;
+}
+
+
+div.keyword-detail div.clips div.inner div.source{
+  font-size:10px;
+  color:#939393;
+}
+
+div.keyword-detail div.clips div.inner div.date{
+  font-size:10px;
+  color:#939393;
+}
+
+div.clips div.inner div.thumbnail img{
+  width:100%
+}
+
 div.article{
   height:239px;
   overflow-y: hidden;
@@ -214,7 +273,7 @@ div.article div.inner{
     marign: 0 auto;
 }
 div.article div.inner div.title{
-    width:70%;
+    width:69%;
     display: inline-block;
     text-align: left;
     font-weight: bold;
@@ -226,7 +285,7 @@ div.article div.inner div.title{
 
 div.article div.inner div.date{
     display: inline-block;
-    width:30%;
+    width:31%;
     text-align: left;
     font-size:10px;
     vertical-align: top;
@@ -266,6 +325,17 @@ div.circle-bottom:before{
     background: rgb(128,6,119);
     background: linear-gradient(90deg, rgba(128,6,119,1) 0%, rgba(182,9,164,1) 40%, rgba(255,15,119,1) 100%);
 }
+
+div.keyword-detail div.circle-bottom:before{
+  position:absolute;
+  content:'';
+  bottom:0;
+  height:12%;
+  left:0;
+  right:0;
+  background: rgba(255,15,119,1);
+}
+
 
 div.chat-enter{
     position: absolute;

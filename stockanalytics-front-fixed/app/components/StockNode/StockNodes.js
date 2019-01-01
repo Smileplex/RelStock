@@ -160,9 +160,9 @@ ${d.name}</div>` +
             `<div class='inner-values'>` +
             `<div class='title'>전일종가</div><div class='value'>${d.pricePrev &&
               d.pricePrev.toLocaleString()}</div>` +
-            `<div class='title'>고가</div><div class='value'>${d.priceMax &&
+            `<div class='title'>고가</div><div class='value up'>${d.priceMax &&
               d.priceMax.toLocaleString()}</div>` +
-            `<div class='title'>저가</div><div class='value'>${d.priceMin &&
+            `<div class='title'>저가</div><div class='value down'>${d.priceMin &&
               d.priceMin.toLocaleString()}</div>` +
             `<div class='title'>거래량</div><div class='value'>${d.volumeTrade &&
               d.volumeTrade.toLocaleString()}</div>` +
@@ -197,7 +197,41 @@ ${d.name}</div>` +
             `</div>` +
             `<div class='circle-bottom'></div>` +
             `<div class='chat-enter'><i class='far fa-comment fa-flip-horizontal'></i></i><span>종목 채팅 바로가기</span></div></div>`
-          : `<div class='keyword-detail'>testing</div>`,
+          : `<div class='keyword-detail'><div class='detail-name-article'><div class='detail-name'>` +
+            `${d.name}</div>` +
+            `<div class='article'>` +
+            `${d.articles &&
+              JSON.parse(d.articles)
+                .map(
+                  a =>
+                    `<div class='inner'><div class='title'><a href=${
+                      a.link
+                    } target="_blank">${
+                      a.title
+                    }</a></div><div class='date'>${new Date(
+                      a.createdDate,
+                    ).toLocaleDateString()} | ${a.source}</div></div>`,
+                )
+                .join('')}` +
+            `</div><hr class='border'/></div>` +
+            `<div class='clips'>` +
+            `${d.clips &&
+              JSON.parse(d.clips)
+                .slice(0, 3)
+                .map(
+                  a =>
+                    `<div class='inner'><div class='thumbnail'><img src=${
+                      a.thumbnail
+                    }></div><div class='title'><a href=${
+                      a.link
+                    } target="_blank">${a.title}</a></div><div class='date'>${
+                      a.ago
+                    } | ${a.source}</div></div>`,
+                )
+                .join('')}` +
+            `</div>` +
+            `<div class='circle-bottom'></div>` +
+            `<div class='chat-enter'><i class='far fa-comment fa-flip-horizontal'></i></i><span>종목 채팅 바로가기</span></div></div>`,
     );
 
     this.simulation
