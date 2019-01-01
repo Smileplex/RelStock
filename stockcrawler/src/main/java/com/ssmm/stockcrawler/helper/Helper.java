@@ -1,5 +1,11 @@
 package com.ssmm.stockcrawler.helper;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.regex.Pattern;
+
 public class Helper {
 	public static boolean containValue(String target, String value) {
 		if (target.contains(",")) {
@@ -26,4 +32,11 @@ public class Helper {
 		return target.trim();
 
 	}
+
+	public static Date convertAgoToDate(String dateAgo){
+		int ago = Integer.valueOf(dateAgo.replaceAll("[^-?0-9]+", ""));
+		LocalDate localDate = LocalDate.now().minusDays(ago);
+		return Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+	}
+
 }

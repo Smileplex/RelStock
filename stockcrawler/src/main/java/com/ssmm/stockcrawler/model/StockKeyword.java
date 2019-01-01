@@ -23,6 +23,7 @@ public class StockKeyword {
 	private int type;
 	private int status;
 	private String articles;
+	private String clips;
 
 	@Relationship(type = "RELATED_TO")
 	private Set<StockKeyword> stockKeywords;
@@ -127,5 +128,13 @@ public class StockKeyword {
 
 	public void setArticles(String articles) {
 		this.articles = articles;
+	}
+
+	public String getClips() {
+		return clips;
+	}
+
+	public void setClips(String clips) {
+		this.clips = clips;
 	}
 }

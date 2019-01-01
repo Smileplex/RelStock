@@ -10,7 +10,9 @@ public class Article {
     private String title;
     private String link;
     private String source;
+    private String ago;
     private Date createdDate;
+
 
     public Article() {
     }
@@ -20,6 +22,13 @@ public class Article {
         this.link = link;
         this.source = source;
         this.createdDate = createdDate;
+    }
+
+    public Article(String title, String link, String source, String ago) {
+        this.title = title;
+        this.link = link;
+        this.source = source;
+        this.ago=ago;
     }
 
     public Date getCreatedDate() {
@@ -54,12 +63,18 @@ public class Article {
         this.source = source;
     }
 
+
+    public String getAgo() {
+        return ago;
+    }
+
     @Override
     public String toString() {
         return "Article{" +
                 "title='" + title + '\'' +
                 ", link='" + link + '\'' +
                 ", source='" + source + '\'' +
+                ", ago='" + ago + '\'' +
                 ", createdDate=" + createdDate +
                 '}';
     }

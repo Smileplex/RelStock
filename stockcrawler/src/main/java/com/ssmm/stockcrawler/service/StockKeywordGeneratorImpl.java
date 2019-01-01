@@ -12,10 +12,12 @@ import com.ssmm.stockcrawler.parser.model.KeywordInfo;
 
 public class StockKeywordGeneratorImpl implements KeywordGenerator {
 	private StockKeywordService stockKeywordService;
+	private ObjectMapper objectMapper;
 
 	@Inject
 	public StockKeywordGeneratorImpl(StockKeywordService stockKeywordService) {
 		this.stockKeywordService = stockKeywordService;
+		this.objectMapper = new ObjectMapper();
 	}
 
 	@Override
@@ -36,6 +38,7 @@ public class StockKeywordGeneratorImpl implements KeywordGenerator {
 		entity.setCreatedDate(new Date());
 		entity.setUpdatedDate(new Date());
 		entity.setType(keywordInfo.getKeywordType());
+		setMassMedia(keywordInfo, entity);
 		entity.setStatus(1);
 
 		StockKeyword relatedKeyword = stockKeywordService.find(keywordLink.getParentId());
@@ -47,6 +50,16 @@ public class StockKeywordGeneratorImpl implements KeywordGenerator {
 
 	private Long updateStockKeyword(StockKeyword searchedKeyword, KeywordInfo keywordInfo) {
 		searchedKeyword.setUpdatedDate(new Date());
+		setMassMedia(keywordInfo, searchedKeyword);
 		return stockKeywordService.save(searchedKeyword).getId();
+	}
+
+	private void setMassMedia(KeywordInfo keywordInfo, StockKeyword entity) {
+		try {
+			entity.setClips(objectMapper.writeValueAsString(keywordInfo.getClips()));
+			entity.setArticles(objectMapper.writeValueAsString(keywordInfo.getArticles()));
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
 	}
 }
