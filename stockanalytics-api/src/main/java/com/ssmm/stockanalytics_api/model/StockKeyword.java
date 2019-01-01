@@ -31,6 +31,9 @@ public class StockKeyword {
 	@Relationship(type = "HAS")
 	private Stock stock;
 
+	private String articles;
+	private String clips;
+
 	public StockKeyword() {
 		// TODO Auto-generated constructor stub
 	}
@@ -122,6 +125,22 @@ public class StockKeyword {
 		stockKeywords.add(stockKeyword);
 	}
 
+	public String getArticles() {
+		return articles;
+	}
+
+	public void setArticles(String articles) {
+		this.articles = articles;
+	}
+
+	public String getClips() {
+		return clips;
+	}
+
+	public void setClips(String clips) {
+		this.clips = clips;
+	}
+
 	@Override
 	public String toString() {
 		return "StockKeyword{" +
@@ -135,6 +154,8 @@ public class StockKeyword {
 				", status=" + status +
 				", stockKeywords=" + stockKeywords +
 				", stock=" + stock +
+				", articles='" + articles + '\'' +
+				", clips='" + clips + '\'' +
 				'}';
 	}
 }
