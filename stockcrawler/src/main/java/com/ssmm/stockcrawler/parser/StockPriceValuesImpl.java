@@ -1,5 +1,6 @@
 package com.ssmm.stockcrawler.parser;
 
+import com.ssmm.stockcrawler.parser.agent.NaverStockUrls;
 import org.jsoup.nodes.Document;
 
 import com.google.common.base.Strings;

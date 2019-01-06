@@ -1,39 +1,45 @@
 package com.ssmm.stockcrawler.controller;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.TimeUnit;
-
 import com.google.inject.Inject;
-import com.ssmm.stockcrawler.AppSettings;
 import com.ssmm.stockcrawler.model.KeywordLink;
 import com.ssmm.stockcrawler.parser.DetailParser;
 import com.ssmm.stockcrawler.parser.KeywordParser;
+import com.ssmm.stockcrawler.parser.RealtimeParser;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class CrawlerController {
 	private ExecutorService executor;
 	private KeywordParser keywordParser;
 	private DetailParser detailParser;
+	private RealtimeParser realtimeParser;
 	private KeywordLinkQueue keywordLinkQueue;
 
 	@Inject
-	public CrawlerController(ExecutorService executor, KeywordParser keywordParser, DetailParser detailParser,
+	public CrawlerController(ExecutorService executor, KeywordParser keywordParser, DetailParser detailParser, RealtimeParser realtimeParser,
 			KeywordLinkQueue keywordLinkQueue) {
 		// TODO Auto-generated constructor stub
 		this.executor = executor;
 		this.keywordParser = keywordParser;
 		this.detailParser = detailParser;
+		this.realtimeParser = realtimeParser;
 		this.keywordLinkQueue = keywordLinkQueue;
 	}
 
 	public void start() {
 		setInitialLink();
 
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < 4; i++) {
 			executor.submit(keywordParser);
 		}
 		
 		for (int i = 0; i < 5; i++) {
 			executor.submit(detailParser);
+		}
+
+		for (int i = 0; i < 1; i++) {
+			executor.submit(realtimeParser);
 		}
 		
 		// stop();

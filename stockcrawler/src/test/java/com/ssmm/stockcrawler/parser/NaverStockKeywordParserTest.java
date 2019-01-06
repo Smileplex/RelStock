@@ -1,5 +1,6 @@
 package com.ssmm.stockcrawler.parser;
 
+import com.ssmm.stockcrawler.parser.agent.NaverStockKeywordParser;
 import org.jsoup.nodes.Document;
 import org.junit.Before;
 import org.junit.Test;

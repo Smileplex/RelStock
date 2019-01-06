@@ -5,20 +5,14 @@ import java.util.concurrent.Executors;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.inject.AbstractModule;
-import com.google.inject.Singleton;
-import com.google.inject.internal.SingletonScope;
 import com.ssmm.stockcrawler.AppSettings;
 import com.ssmm.stockcrawler.controller.DetailLinkQueue;
 import com.ssmm.stockcrawler.controller.KeywordLinkQueue;
 import com.ssmm.stockcrawler.parser.*;
-import com.ssmm.stockcrawler.service.DetailGenerator;
-import com.ssmm.stockcrawler.service.KeywordGenerator;
-import com.ssmm.stockcrawler.service.StockGeneratorImpl;
-import com.ssmm.stockcrawler.service.StockKeywordGeneratorImpl;
-import com.ssmm.stockcrawler.service.StockKeywordService;
-import com.ssmm.stockcrawler.service.StockKeywordServiceImpl;
-import com.ssmm.stockcrawler.service.StockService;
-import com.ssmm.stockcrawler.service.StockServiceImpl;
+import com.ssmm.stockcrawler.parser.agent.NaverStockKeywordParser;
+import com.ssmm.stockcrawler.parser.agent.NaverStockParser;
+import com.ssmm.stockcrawler.parser.agent.NaverTopSearchedStockParser;
+import com.ssmm.stockcrawler.service.*;
 
 public class CrawlerModule extends AbstractModule {
 
@@ -28,7 +22,9 @@ public class CrawlerModule extends AbstractModule {
 		bind(ExecutorService.class).toInstance(Executors.newFixedThreadPool(AppSettings.THREAD_WORKERS));
 		bind(KeywordParser.class).to(KeywordParserImpl.class);
 		bind(DetailParser.class).to(DetailParserImpl.class);
-		
+		bind(RealtimeParser.class).to(RealtimeParserImpl.class);
+		bind(TopSearchedStockParser.class).to(NaverTopSearchedStockParser.class);
+
 		bind(PageReader.class).to(PageReaderImpl.class);
 		bind(PageParser.class).to(NaverStockKeywordParser.class);
 		bind(PageDetailParser.class).to(NaverStockParser.class);
@@ -36,6 +32,7 @@ public class CrawlerModule extends AbstractModule {
 		bind(StockPriceValues.class).to(StockPriceValuesImpl.class);
 		bind(StockKeywordService.class).to(StockKeywordServiceImpl.class);
 		bind(StockService.class).to(StockServiceImpl.class);
+		bind(TopSearchedStockService.class).to(TopSearchedStockServiceImpl.class);
 		bind(KeywordGenerator.class).to(StockKeywordGeneratorImpl.class);
 		bind(DetailGenerator.class).to(StockGeneratorImpl.class);
 		
