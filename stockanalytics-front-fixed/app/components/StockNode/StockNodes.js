@@ -368,7 +368,6 @@ export function dragstarted() {
 }
 
 export function dragged(d) {
-  console.log('executed');
   d3.select(this)
     // eslint-disable-next-line no-param-reassign
     .attr('cx', (d.x = d3.event.x))

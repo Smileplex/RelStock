@@ -1,7 +1,5 @@
 import { takeLatest, call, put } from 'redux-saga/effects';
 import * as d3 from 'd3';
-import { LOAD_DEFAULT_STOCKS_REQUEST } from './constants';
-import { loadDefaultStocksSuccess } from './actions';
 import request from '../../utils/request';
 
 export function* loadDefaultStocks() {
@@ -42,5 +40,6 @@ function formatToD3(result) {
 }
 
 export default function* defaultSaga() {
-  yield takeLatest(LOAD_DEFAULT_STOCKS_REQUEST, loadDefaultStocks);
+  // console.log('params', params);
+  // yield takeLatest(LOAD_DEFAULT_STOCKS_REQUEST, loadDefaultStocks);
 }

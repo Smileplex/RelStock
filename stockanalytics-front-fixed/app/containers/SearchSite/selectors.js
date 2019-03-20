@@ -1,9 +1,10 @@
 import { createSelector } from 'reselect';
 import { initialState } from './reducer';
 
-const selectStock = state => state.get('stock', initialState);
-const makeSelectStocks = createSelector(selectStock, stockState =>
-  stockState.get('stocks'),
+const selectTopSearchedStocks = state => state.get('search', initialState);
+const makeTopSearchedStocks = createSelector(
+  selectTopSearchedStocks,
+  searchStock => searchStock.get('topSearchedStocks'),
 );
 
-export default makeSelectStocks;
+export default makeTopSearchedStocks;

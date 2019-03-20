@@ -1,6 +1,8 @@
 /* eslint consistent-return:0 import/order:0 */
 
 const express = require('express');
+// const WebSocket = require('ws');
+const SocketIo = require('socket.io');
 const logger = require('./logger');
 
 const argv = require('./argv');
@@ -54,3 +56,57 @@ app.listen(port, host, async err => {
     logger.appStarted(port, prettyHost);
   }
 });
+
+const io = new SocketIo(8989);
+require('../server/socketEvents')(io);
+
+// const wss = new WebSocket.Server({ port: 8989 });
+// const users = [];
+//
+// const broadcast = (data, ws) => {
+//   wss.clients.forEach(client => {
+//     if (client.readyState === WebSocket.OPEN && client !== ws) {
+//       client.send(JSON.stringify(data));
+//     }
+//   });
+// };
+//
+// wss.on('connection', ws => {
+//   let index;
+//   ws.on('message', message => {
+//     const data = JSON.parse(message);
+//     switch (data.type) {
+//       case 'chat/ADD_USER': {
+//         index = users.length;
+//         users.push({ name: data.name, id: index + 1 });
+//         ws.send(
+//           JSON.stringify({
+//             type: 'chat/USERS_LIST',
+//             users,
+//           }),
+//         );
+//         broadcast(
+//           {
+//             type: 'chat/USERS_LIST',
+//             users,
+//           },
+//           ws,
+//         );
+//         break;
+//       }
+//       case 'chat/ADD_MESSAGE':
+//         console.log('message', data);
+//         broadcast(
+//           {
+//             type: 'chat/ADD_MESSAGE',
+//             message: data.message,
+//             author: data.author,
+//           },
+//           ws,
+//         );
+//         break;
+//       default:
+//         break;
+//     }
+//   });
+// });

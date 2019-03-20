@@ -630,6 +630,12 @@ hr.border{
     color:#939393;
 }
 
+.Collapsible ul li button{
+  font-weight:bold;
+  margin-left:0px;
+  padding-left:0px;
+  cursor: pointer;
+}
 .Collapsible__contentInner {
     width:300px;
     border-top: 0; }
@@ -694,7 +700,7 @@ div.chatBox .chatForm textarea { display: inline-block; margin: 0; width: 75%; v
 div.chatBox .chatForm textarea:focus{ outline:0; border:0;}
 div.chatBox .chatForm input[type="button"] {font-size:14px; font-family: 'Noto Sans KR', sans-serif; color:#fff; appearance: none; box-shadow: none; border:none; background: none; border-radius:12px; width:83px; height:75px; background-color: #ff3568;}
 div.chatBox .chatTextArea{overflow-y: hidden;}
-div.chatBox .chatTextArea ul.chatTextList{list-style-type:none; outline: none; padding:0;}
+div.chatBox .chatTextArea ul.chatTextList{list-style-type:none; outline: none; padding:0; overflow-y: scroll;}
 div.chatBox .chatTextArea ul.chatTextList li{font-size:1.5em; margin:10px; transition: all .5s; padding-top:10px;}
 div.chatBox .chatTextArea ul.chatTextList li:after { content: ''; clear: both; display: block;}
 div.chatBox .chatTextArea ul.chatTextList .head{font-size:13px;}

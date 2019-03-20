@@ -1,15 +1,23 @@
 import React from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 import { slide as Menu } from 'react-burger-menu';
-import reducer from './reducer';
+import PropTypes from 'prop-types';
+import { createStructuredSelector } from 'reselect';
+import reducer from './modules';
 import saga from './saga';
-import makeSelectStocks from './selectors';
 import ChatRoom from '../../components/Chat/ChatRoom';
 import Chat from '../../components/Chat/Chat';
+import { addMessage, joinRoom, leaveRoom } from './actions';
+import {
+  makeSelectMessages,
+  makeSelectUsers,
+  makeSelectRooms,
+} from './selectors';
+import MessagesList from '../../components/Chat/MessagesList';
+import username from '../../utils/name';
 
 class ChatSite extends React.PureComponent {
   constructor(props) {
@@ -17,51 +25,79 @@ class ChatSite extends React.PureComponent {
 
     this.state = {
       chatActivated: false,
+      currentRoom: '',
+      user: username(),
     };
   }
 
-  changeActivation = () => {
+  joinRoom = targetRoom => {
     this.setState({
       chatActivated: true,
+      currentRoom: targetRoom,
     });
+    this.props.joinRoom(targetRoom);
   };
 
-  isMenuOpen = ({ isOpen }) => {
-    if (!isOpen)
-      this.setState({
-        chatActivated: false,
-      });
+  leaveRoom = () => {
+    this.props.leaveRoom(this.state.currentRoom);
+    this.setState({
+      chatActivated: false,
+      currentRoom: '',
+    });
   };
 
   render() {
     return (
       <Menu
-        onStateChange={this.isMenuOpen}
+        // onStateChange={this.isMenuOpen}
         width="375px"
         right
         burgerButtonClassName="far fa-comments chat"
         customBurgerIcon={<i className="far fa-comments" />}
       >
         {!this.state.chatActivated ? (
-          <ChatRoom goclick={this.changeActivation} />
+          <ChatRoom rooms={this.props.rooms} onJoinRoom={this.joinRoom} />
         ) : (
-          <Chat />
+          <Chat
+            user={this.state.user}
+            currentRoom={this.state.currentRoom}
+            messages={this.props.messages}
+            addMessage={this.props.addMessage}
+            leaveRoom={this.leaveRoom}
+          />
         )}
+        <MessagesList />
       </Menu>
     );
   }
 }
 
-ChatSite.propTypes = {};
+ChatSite.propTypes = {
+  addMessage: PropTypes.func,
+  messages: PropTypes.object,
+  joinRoom: PropTypes.func,
+  leaveRoom: PropTypes.func,
+  rooms: PropTypes.array,
+};
 
 export function mapDispatchToProps(dispatch) {
   return {
-    onLoadDefaultStocks: () => dispatch(),
+    addMessage: ({ message, author, currentRoom }) => {
+      dispatch(addMessage(message, author, currentRoom));
+    },
+    joinRoom: targetRoom => {
+      dispatch(joinRoom(targetRoom));
+    },
+    leaveRoom: currentRoom => {
+      dispatch(leaveRoom(currentRoom));
+    },
   };
 }
 
 const mapStateToProps = createStructuredSelector({
-  stocks: makeSelectStocks,
+  rooms: makeSelectRooms,
+  messages: makeSelectMessages,
+  users: makeSelectUsers,
 });
 
 const withConnect = connect(
@@ -70,7 +106,7 @@ const withConnect = connect(
 );
 
 const withReducer = injectReducer({ key: 'chat', reducer });
-const withSaga = injectSaga({ key: 'chat', saga });
+const withSaga = injectSaga({ key: 'chat', saga, test: 'test' });
 
 export default compose(
   withReducer,

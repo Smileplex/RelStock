@@ -7,18 +7,22 @@ import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 import { slide as Menu } from 'react-burger-menu';
 import { loadSearchedStocksRequest } from '../StockMap/actions';
+import { loadTopSearchedStocksRequest } from './actions';
 import reducer from './reducer';
 import saga from './saga';
 import SearchBody from '../../components/Search/SearchBody';
-import makeSelectStocks from './selectors';
+import makeTopSearchedStocks from './selectors';
 
 class SearchSite extends React.PureComponent {
-  componentDidMount() {}
-
   onSearch = input => {
     const { onLoadSearchedStocks } = this.props;
     onLoadSearchedStocks(input);
   };
+
+  componentDidMount() {
+    const { onLoadTopSearchedStocks } = this.props;
+    onLoadTopSearchedStocks();
+  }
 
   render() {
     return (
@@ -27,25 +31,32 @@ class SearchSite extends React.PureComponent {
         burgerButtonClassName="fas fa-search search"
         customBurgerIcon={<i className="fas fa-search" />}
       >
-        <SearchBody onSearch={this.onSearch} />
+        <SearchBody
+          topSearchedStocks={this.props.topSearchedStocks}
+          onSearch={this.onSearch}
+        />
       </Menu>
     );
   }
 }
 
 SearchSite.propTypes = {
+  topSearchedStocks: PropTypes.object,
   onLoadSearchedStocks: PropTypes.func,
+  onLoadTopSearchedStocks: PropTypes.func,
 };
 
 export function mapDispatchToProps(dispatch) {
   return {
     onLoadSearchedStocks: keyword =>
       dispatch(loadSearchedStocksRequest(keyword)),
+
+    onLoadTopSearchedStocks: () => dispatch(loadTopSearchedStocksRequest()),
   };
 }
 
 const mapStateToProps = createStructuredSelector({
-  stocks: makeSelectStocks,
+  topSearchedStocks: makeTopSearchedStocks,
 });
 
 const withConnect = connect(

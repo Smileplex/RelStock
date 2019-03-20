@@ -19,7 +19,6 @@ class StockMap extends React.PureComponent {
   }
 
   render() {
-    console.log(this.props.stocks);
     const center = { x: width / 2, y: height / 2 };
     const forceStrength = 0.15;
     return (
