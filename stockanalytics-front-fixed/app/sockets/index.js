@@ -35,7 +35,12 @@ const socketMiddleware = store => {
   });
 
   socket.on('update rooms', event => {
-    store.dispatch(updateRooms(fromJS(Map(JSON.parse(event)))));
+    const rooms = fromJS(Map(JSON.parse(event))).map((value, key) => ({
+      name: key,
+      count: value,
+    }));
+
+    store.dispatch(updateRooms(rooms));
   });
 
   return next => action => {

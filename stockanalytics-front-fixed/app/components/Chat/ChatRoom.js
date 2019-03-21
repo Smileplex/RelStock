@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 const ChatRoom = ({ onJoinRoom, rooms }) => {
   const stockRooms = rooms.get('stockRooms');
-  console.log('stockRooms', stockRooms.toJS());
+  console.log('stockRooms', stockRooms.toList().toJS());
   // noinspection JSAnnotator
   return (
     <div className="chat-room">
@@ -37,13 +37,13 @@ const ChatRoom = ({ onJoinRoom, rooms }) => {
           }
         >
           <ul>
-            {Object.entries(stockRooms.toJS()).map(([key, value]) => (
+            {stockRooms.toList().map(({ name, count }) => (
               <li>
                 <button
                   type="button"
                   onClick={() => onJoinRoom('네오위즈홀딩스')}
                 >
-                  {key} <span className="dim">({value})</span>
+                  {name} <span className="dim">({count})</span>
                 </button>
               </li>
             ))}

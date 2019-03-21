@@ -5,7 +5,7 @@ module.exports = io => {
     // socket.join('Lobby');
     socket.on('chat mounted', () => {
       // TODO: Does the server need to know the user?
-      socket.emit('load rooms', socket.adapter.rooms);
+      socket.emit('load rooms', rooms);
     });
     socket.on('leave room', data => {
       console.log('leaving room ', data);
@@ -23,14 +23,9 @@ module.exports = io => {
       io.sockets.emit('update rooms', JSON.stringify([...rooms]));
     });
     socket.on('join room', data => {
-      console.log('joining room ', data);
       const room = JSON.parse(data);
-
-      if (rooms.get(room.name)) {
-        rooms.set(room.name, rooms.get(room.name) + 1);
-      } else {
-        rooms.set(room.name, 1);
-      }
+      const count = rooms.get(room.name) ? rooms.get(room.name) + 1 : 1;
+      rooms.set(room.name, count);
       currentRoomName = room.name;
       socket.join(room.name);
       io.sockets.emit('update rooms', JSON.stringify([...rooms]));

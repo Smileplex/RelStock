@@ -12,7 +12,7 @@ function rooms(state = initialState, action) {
     case UPDATE_ROOMS:
       return state.set(
         'stockRooms',
-        action.rooms.filter(elem => elem !== null),
+        action.rooms.filter(elem => elem.name !== null),
       );
     default:
       return state;
