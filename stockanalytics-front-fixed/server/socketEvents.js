@@ -2,32 +2,56 @@ module.exports = io => {
   const rooms = new Map();
   io.on('connection', socket => {
     let currentRoomName;
-    // socket.join('Lobby');
+
+    function leaveRoom(roomName) {
+      const targetRoom = rooms.get(roomName);
+      const count = targetRoom ? targetRoom && targetRoom.size - 1 : -1;
+
+      rooms.set(roomName, {
+        type: targetRoom && targetRoom.type,
+        size: count,
+      });
+
+      if (count <= 0) {
+        rooms.delete(roomName);
+      }
+
+      socket.leave(roomName);
+      currentRoomName = '';
+    }
+
     socket.on('chat mounted', () => {
       // TODO: Does the server need to know the user?
-      socket.emit('load rooms', rooms);
+      io.sockets.emit('update rooms', JSON.stringify([...rooms]));
     });
     socket.on('leave room', data => {
-      console.log('leaving room ', data);
       const room = JSON.parse(data);
-
-      rooms.set(room.name, rooms.get(room.name) - 1);
-      if (rooms.get(room.name) <= 0) rooms.delete(room.name);
-
-      socket.leave(room.name);
+      leaveRoom(room.name);
       io.sockets.emit('update rooms', JSON.stringify([...rooms]));
     });
     socket.on('disconnect', () => {
-      rooms.set(currentRoomName, rooms.get(currentRoomName) - 1);
-      if (rooms.get(currentRoomName) <= 0) rooms.delete(currentRoomName);
+      leaveRoom(currentRoomName);
       io.sockets.emit('update rooms', JSON.stringify([...rooms]));
     });
+
     socket.on('join room', data => {
+      console.log('join-room-data', data);
       const room = JSON.parse(data);
-      const count = rooms.get(room.name) ? rooms.get(room.name) + 1 : 1;
-      rooms.set(room.name, count);
-      currentRoomName = room.name;
-      socket.join(room.name);
+      if (room.name !== currentRoomName) {
+        leaveRoom(currentRoomName);
+
+        const count = rooms.get(room.name)
+          ? rooms.get(room.name) && rooms.get(room.name).size + 1
+          : 1;
+        rooms.set(room.name, {
+          type: room.type,
+          size: count,
+        });
+        currentRoomName = room.name;
+        socket.join(room.name);
+      }
+
+      console.log('socketEvent', JSON.stringify([...rooms]));
       io.sockets.emit('update rooms', JSON.stringify([...rooms]));
     });
     socket.on('new message', data => {

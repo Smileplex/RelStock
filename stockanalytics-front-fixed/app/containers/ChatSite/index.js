@@ -24,43 +24,37 @@ class ChatSite extends React.PureComponent {
     super(props);
 
     this.state = {
-      chatActivated: false,
-      currentRoom: '',
       user: username(),
     };
   }
 
   joinRoom = targetRoom => {
-    this.setState({
-      chatActivated: true,
-      currentRoom: targetRoom,
-    });
     this.props.joinRoom(targetRoom);
   };
 
   leaveRoom = () => {
-    this.props.leaveRoom(this.state.currentRoom);
-    this.setState({
-      chatActivated: false,
-      currentRoom: '',
-    });
+    this.props.leaveRoom(this.props.rooms.get('currentRoom'));
   };
 
   render() {
+    const chatActivated = this.props.rooms.get('chatActivated');
+    const currentRoom = this.props.rooms.get('currentRoom');
+
     return (
       <Menu
         // onStateChange={this.isMenuOpen}
+        isOpen={chatActivated}
         width="375px"
         right
         burgerButtonClassName="far fa-comments chat"
         customBurgerIcon={<i className="far fa-comments" />}
       >
-        {!this.state.chatActivated ? (
+        {!chatActivated ? (
           <ChatRoom rooms={this.props.rooms} onJoinRoom={this.joinRoom} />
         ) : (
           <Chat
             user={this.state.user}
-            currentRoom={this.state.currentRoom}
+            currentRoom={currentRoom}
             messages={this.props.messages}
             addMessage={this.props.addMessage}
             leaveRoom={this.leaveRoom}

@@ -8,10 +8,10 @@
 
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import StockMap from 'containers/StockMap';
-import ChatSite from 'containers/ChatSite';
-import SearchSite from 'containers/SearchSite';
-import Logo from 'components/Header/Logo';
+import StockMap from '../StockMap';
+import ChatSite from '../ChatSite';
+import SearchSite from '../SearchSite';
+import Logo from '../../components/Header/Logo';
 import './Style.css';
 
 export default function App() {

@@ -29,17 +29,16 @@ const socketMiddleware = store => {
     }
   });
 
-  socket.on('load rooms', event => {
-    const data = event;
-    console.log('load rooms', data);
-  });
-
   socket.on('update rooms', event => {
-    const rooms = fromJS(Map(JSON.parse(event))).map((value, key) => ({
-      name: key,
-      count: value,
-    }));
+    const rooms = fromJS(Map(JSON.parse(event)))
+      .filter(value => value !== null)
+      .map((value, key) => ({
+        name: key,
+        type: value.type,
+        size: value.size,
+      }));
 
+    console.log('rooms', rooms.toJS());
     store.dispatch(updateRooms(rooms));
   });
 
@@ -55,14 +54,10 @@ const socketMiddleware = store => {
         );
         break;
       case types.JOIN_ROOM:
-        socket.emit(
-          'join room',
-          JSON.stringify({
-            name: action.targetRoom,
-          }),
-        );
+        socket.emit('join room', action.targetRoom);
         break;
       case types.LEAVE_ROOM:
+        console.log('leave_room', action.currentRoom);
         socket.emit(
           'leave room',
           JSON.stringify({

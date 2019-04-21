@@ -11,6 +11,7 @@ import { loadDefaultStocksRequest } from './actions';
 import reducer from './reducer';
 import saga from './saga';
 import makeSelectStocks from './selectors';
+import { joinRoom } from '../ChatSite/actions';
 
 class StockMap extends React.PureComponent {
   componentDidMount() {
@@ -25,6 +26,7 @@ class StockMap extends React.PureComponent {
       <svg width={width} height={height}>
         <StockNodes
           data={this.props.stocks}
+          onJoinRoom={this.props.onJoinRoom}
           forceStrength={forceStrength}
           center={center}
         />
@@ -36,11 +38,13 @@ class StockMap extends React.PureComponent {
 StockMap.propTypes = {
   stocks: PropTypes.array,
   onLoadDefaultStocks: PropTypes.func,
+  onJoinRoom: PropTypes.func,
 };
 
 export function mapDispatchToProps(dispatch) {
   return {
     onLoadDefaultStocks: () => dispatch(loadDefaultStocksRequest()),
+    onJoinRoom: targetRoom => dispatch(joinRoom(targetRoom)),
   };
 }
 

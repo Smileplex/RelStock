@@ -3,9 +3,10 @@ import Collapsible from 'react-collapsible';
 import PropTypes from 'prop-types';
 
 const ChatRoom = ({ onJoinRoom, rooms }) => {
+  const popularRooms = rooms.get('popularRooms');
   const stockRooms = rooms.get('stockRooms');
-  console.log('stockRooms', stockRooms.toList().toJS());
-  // noinspection JSAnnotator
+  const keywordRooms = rooms.get('keywordRooms');
+  console.log('popular rooms', rooms.get('popularRooms').toJS());
   return (
     <div className="chat-room">
       <div className="menu-header">
@@ -37,49 +38,66 @@ const ChatRoom = ({ onJoinRoom, rooms }) => {
           }
         >
           <ul>
-            {stockRooms.toList().map(({ name, count }) => (
+            {popularRooms.toList().map(({ name, size }) => (
               <li>
                 <button
                   type="button"
-                  onClick={() => onJoinRoom('네오위즈홀딩스')}
+                  onClick={() =>
+                    onJoinRoom(
+                      JSON.stringify({
+                        name,
+                        type: 'Stock',
+                      }),
+                    )
+                  }
                 >
-                  {name} <span className="dim">({count})</span>
+                  {name} <span className="dim">({size})</span>
                 </button>
               </li>
             ))}
-            <li>
-              <button
-                type="button"
-                onClick={() => onJoinRoom('네오위즈홀딩스')}
-              >
-                네오위즈홀딩스 <span className="dim">(1,293)</span>
-              </button>
-            </li>
-            <li>
-              <button type="button" onClick={() => onJoinRoom('네이버')}>
-                네이버 <span className="dim">(1,081)</span>
-              </button>
-            </li>
-            <li>
-              <button type="button" onClick={() => onJoinRoom('삼성전자')}>
-                삼성전자 <span className="dim">(781)</span>
-              </button>
-            </li>
-            <li>
-              <button type="button" onClick={() => onJoinRoom('시멘트 관련주')}>
-                시멘트 관련주 <span className="dim">(661)</span>
-              </button>
-            </li>
-            <li>
-              <button type="button" onClick={() => onJoinRoom('통일 관련주')}>
-                통일 관련주 <span className="dim">(620)</span>
-              </button>
-            </li>
-            <li>
-              <button type="button" onClick={() => onJoinRoom('통일 관련주')}>
-                한국철강 <span className="dim">(491)</span>
-              </button>
-            </li>
+            {/* <li> */}
+            {/* <button */}
+            {/* type="button" */}
+            {/* onClick={() => onJoinRoom('네오위즈홀딩스')} */}
+            {/* > */}
+            {/* 네오위즈홀딩스 <span className="dim">(1,293)</span> */}
+            {/* </button> */}
+            {/* </li> */}
+            {/* <li> */}
+            {/* <button */}
+            {/* type="button" */}
+            {/* onClick={() => */}
+            {/* onJoinRoom( */}
+            {/* JSON.stringify({ */}
+            {/* name: '네이버', */}
+            {/* type: 'Stock', */}
+            {/* }), */}
+            {/* ) */}
+            {/* } */}
+            {/* > */}
+            {/* 네이버 <span className="dim">(1,081)</span> */}
+            {/* </button> */}
+            {/* </li> */}
+            {/* <li> */}
+            {/* <button type="button" onClick={() => onJoinRoom('삼성전자')}> */}
+            {/* 삼성전자 <span className="dim">(781)</span> */}
+            {/* </button> */}
+            {/* </li> */}
+            {/* <li> */}
+            {/* <button type="button" onClick={() => onJoinRoom('시멘트 관련주')}> */}
+            {/* 시멘트 관련주 <span className="dim">(661)</span> */}
+            {/* </button> */}
+            {/* </li> */}
+            {/* <li> */}
+            {/* <button type="button" onClick={() => onJoinRoom('통일 관련주')}> */}
+            {/* 통일 관련주 <span className="dim">(620)</span> */}
+            {/* </button> */}
+            {/* </li> */}
+            {/* <li> */}
+            {/* <button type="button" onClick={() => onJoinRoom('통일 관련주')}> */}
+            {/* 한국철강 <span className="dim">(491)</span> */}
+            {/* </button> */}
+            {/* </li> */}
           </ul>
         </Collapsible>
         <Collapsible
@@ -98,24 +116,23 @@ const ChatRoom = ({ onJoinRoom, rooms }) => {
           }
         >
           <ul>
-            <li>
-              종목이름 <span className="dim">(접속자수)</span>
-            </li>
-            <li>
-              종목이름 <span className="dim">(접속자수)</span>
-            </li>
-            <li>
-              종목이름 <span className="dim">(접속자수)</span>
-            </li>
-            <li>
-              종목이름 <span className="dim">(접속자수)</span>
-            </li>
-            <li>
-              종목이름 <span className="dim">(접속자수)</span>
-            </li>
-            <li>
-              종목이름 <span className="dim">(접속자수)</span>
-            </li>
+            {stockRooms.toList().map(({ name, size }) => (
+              <li>
+                <button
+                  type="button"
+                  onClick={() =>
+                    onJoinRoom(
+                      JSON.stringify({
+                        name,
+                        type: 'Stock',
+                      }),
+                    )
+                  }
+                >
+                  {name} <span className="dim">({size})</span>
+                </button>
+              </li>
+            ))}
           </ul>
         </Collapsible>
         <Collapsible
@@ -134,24 +151,23 @@ const ChatRoom = ({ onJoinRoom, rooms }) => {
           }
         >
           <ul>
-            <li>
-              키워드이름 <span className="dim">(1,293)</span>
-            </li>
-            <li>
-              키워드이름 <span className="dim">(1,081)</span>
-            </li>
-            <li>
-              키워드이름 <span className="dim">(723)</span>
-            </li>
-            <li>
-              키워드이름 <span className="dim">(661)</span>
-            </li>
-            <li>
-              키워드이름 <span className="dim">(620)</span>
-            </li>
-            <li>
-              키워드이름 <span className="dim">(491)</span>
-            </li>
+            {keywordRooms.toList().map(({ name, size }) => (
+              <li>
+                <button
+                  type="button"
+                  onClick={() =>
+                    onJoinRoom(
+                      JSON.stringify({
+                        name,
+                        type: 'Stock',
+                      }),
+                    )
+                  }
+                >
+                  {name} <span className="dim">({size})</span>
+                </button>
+              </li>
+            ))}
           </ul>
         </Collapsible>
       </div>

@@ -324,6 +324,7 @@ div.circle-bottom:before{
     right:0;
     background: rgb(128,6,119);
     background: linear-gradient(90deg, rgba(128,6,119,1) 0%, rgba(182,9,164,1) 40%, rgba(255,15,119,1) 100%);
+    pointer-events: visible;
 }
 
 div.keyword-detail div.circle-bottom:before{
@@ -334,6 +335,7 @@ div.keyword-detail div.circle-bottom:before{
   left:0;
   right:0;
   background: rgba(255,15,119,1);
+  pointer-events: visible;
 }
 
 

@@ -51,11 +51,16 @@ class StockNodes extends React.Component {
           d =>
             d.radius === 300 &&
             d.id !== Number(d3.event.target.id) &&
-            d3.event.target.tagName !== 'A',
+            d3.event.target.tagName !== 'A' &&
+            d3.event.target.className !== 'circle-bottom',
         )
         .forEach(a => {
           this.switchRadius(0, a);
         });
+
+      if (d3.event.target.className === 'circle-bottom') {
+        this.props.onJoinRoom(d3.select(d3.event.target).attr('data-room'));
+      }
     });
 
     const circle = this.state.g.selectAll('circle').data(data, d => d.id);
@@ -195,7 +200,9 @@ ${d.name}</div>` +
               )
               .join('')}` +
             `</div>` +
-            `<div class='circle-bottom'></div>` +
+            `<div class='circle-bottom' data-room={"name":"${d.name}","type":"${
+              d.type
+            }"}></div>` +
             `<div class='chat-enter'><i class='far fa-comment fa-flip-horizontal'></i></i><span>종목 채팅 바로가기</span></div></div>`
           : `<div class='keyword-detail'><div class='detail-name-article'><div class='detail-name'>` +
             `${d.name}</div>` +
@@ -230,7 +237,9 @@ ${d.name}</div>` +
                 )
                 .join('')}` +
             `</div>` +
-            `<div class='circle-bottom'></div>` +
+            `<div class='circle-bottom' data-room={"name":"${d.name}","type":"${
+              d.type
+            }"}></div>` +
             `<div class='chat-enter'><i class='far fa-comment fa-flip-horizontal'></i></i><span>종목 채팅 바로가기</span></div></div>`,
     );
 
@@ -361,6 +370,7 @@ StockNodes.propTypes = {
       name: PropTypes.string.isRequired,
     }),
   ),
+  onJoinRoom: PropTypes.func,
 };
 export function dragstarted() {
   d3.event.sourceEvent.stopPropagation();

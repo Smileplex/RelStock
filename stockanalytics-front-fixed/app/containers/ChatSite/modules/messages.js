@@ -1,5 +1,5 @@
 import { fromJS } from 'immutable/dist/immutable';
-import { ADD_MESSAGE, MESSAGE_RECEIVED, LEAVE_ROOM } from '../constants';
+import { ADD_MESSAGE, MESSAGE_RECEIVED, JOIN_ROOM, LEAVE_ROOM } from '../constants';
 
 export const initialState = fromJS([
   {
@@ -18,6 +18,8 @@ function messages(state = initialState, action) {
         author: action.author,
         id: action.id,
       });
+    case JOIN_ROOM:
+      return state.clear();
     case LEAVE_ROOM:
       return state.clear();
     default:
