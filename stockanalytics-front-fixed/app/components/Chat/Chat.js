@@ -16,7 +16,7 @@ class Chat extends React.Component {
   }
 
   render() {
-    const { messages, currentRoom } = this.props;
+    const { messages, currentRoom, currentRoomSize } = this.props;
     return (
       <div className="chat">
         <div className="menu-header chat">
@@ -24,7 +24,7 @@ class Chat extends React.Component {
             <i className="fas fa-angle-left" />
           </button>
           {currentRoom}
-          <dim>&nbsp;(1,081)</dim>
+          <dim>&nbsp;{currentRoomSize}</dim>
         </div>
         <div className="content">
           <div className="chatBox">
@@ -103,5 +103,6 @@ Chat.propTypes = {
   leaveRoom: PropTypes.func,
   messages: PropTypes.array,
   currentRoom: PropTypes.string,
+  currentRoomSize: PropTypes.number,
 };
 export default Chat;

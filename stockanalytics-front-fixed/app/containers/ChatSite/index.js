@@ -39,6 +39,7 @@ class ChatSite extends React.PureComponent {
   render() {
     const chatActivated = this.props.rooms.get('chatActivated');
     const currentRoom = this.props.rooms.get('currentRoom');
+    const currentRoomSize = this.props.rooms.get('currentRoomSize') && this.props.rooms.get('currentRoomSize').size;
 
     return (
       <Menu
@@ -55,6 +56,7 @@ class ChatSite extends React.PureComponent {
           <Chat
             user={this.state.user}
             currentRoom={currentRoom}
+            currentRoomSize={currentRoomSize}
             messages={this.props.messages}
             addMessage={this.props.addMessage}
             leaveRoom={this.leaveRoom}

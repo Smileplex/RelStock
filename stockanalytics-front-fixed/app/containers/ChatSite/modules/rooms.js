@@ -7,6 +7,7 @@ export const initialState = fromJS({
   keywordRooms: {},
   chatActivated: false,
   currentRoom: '',
+  currentRoomSize: '',
 });
 
 function rooms(state = initialState, action) {
@@ -28,6 +29,16 @@ function rooms(state = initialState, action) {
         .set(
           'popularRooms',
           action.rooms.sort((a, b) => b.size - a.size).slice(0, 3),
+        )
+        .set(
+          'currentRoomSize',
+          action.rooms
+            .filter(elem => elem.name === state.get('currentRoom'))
+            .map(elem => ({
+              size: elem.size,
+            }))
+            .values()
+            .next().value,
         );
     case JOIN_ROOM:
       return state
