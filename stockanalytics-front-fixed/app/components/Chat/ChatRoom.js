@@ -6,11 +6,13 @@ const ChatRoom = ({ onJoinRoom, rooms }) => {
   const popularRooms = rooms.get('popularRooms');
   const stockRooms = rooms.get('stockRooms');
   const keywordRooms = rooms.get('keywordRooms');
-  console.log('popular rooms', rooms.get('popularRooms').toJS());
+  const totalRooms = Object.assign({}, stockRooms.toJS(), keywordRooms.toJS());
+  const totalRoomCount = Object.keys(totalRooms).length;
+
   return (
     <div className="chat-room">
       <div className="menu-header">
-        채팅 <dim>(8,255)</dim>
+        채팅 <dim>{totalRoomCount}</dim>
       </div>
       <div className="content">
         <div className="search-bar">

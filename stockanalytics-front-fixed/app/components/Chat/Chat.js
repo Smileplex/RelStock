@@ -8,10 +8,11 @@ class Chat extends React.Component {
   }
 
   scrollToBottom = () => {
-    this.chatTextList.scrofllTop = this.chatTextList.scrollHeight;
+    this.chatTextList.scrollTop = this.chatTextList.scrollHeight;
   };
 
   componentDidUpdate() {
+    console.log('scrollToBottom called');
     this.scrollToBottom();
   }
 
@@ -24,7 +25,10 @@ class Chat extends React.Component {
             <i className="fas fa-angle-left" />
           </button>
           {currentRoom}
-          <dim>&nbsp;{currentRoomSize}</dim>
+          <dim>
+            &nbsp;
+            {currentRoomSize}
+          </dim>
         </div>
         <div className="content">
           <div className="chatBox">

@@ -26,6 +26,8 @@ class ChatSite extends React.PureComponent {
     this.state = {
       user: username(),
     };
+
+    this.chatRoomActivated = false;
   }
 
   joinRoom = targetRoom => {
@@ -36,15 +38,23 @@ class ChatSite extends React.PureComponent {
     this.props.leaveRoom(this.props.rooms.get('currentRoom'));
   };
 
+  isMenuOpen = e => {
+    const chatActivated = this.props.rooms.get('chatActivated');
+    this.chatRoomActivated = e.isOpen && !chatActivated;
+    console.log(this.chatRoomActivated);
+  };
+
   render() {
     const chatActivated = this.props.rooms.get('chatActivated');
     const currentRoom = this.props.rooms.get('currentRoom');
-    const currentRoomSize = this.props.rooms.get('currentRoomSize') && this.props.rooms.get('currentRoomSize').size;
+    const currentRoomSize =
+      this.props.rooms.get('currentRoomSize') &&
+      this.props.rooms.get('currentRoomSize').size;
 
     return (
       <Menu
-        // onStateChange={this.isMenuOpen}
-        isOpen={chatActivated}
+        onStateChange={this.isMenuOpen}
+        isOpen={chatActivated || this.chatRoomActivated}
         width="375px"
         right
         burgerButtonClassName="far fa-comments chat"
